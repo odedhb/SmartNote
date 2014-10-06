@@ -53,6 +53,7 @@ public abstract class Dictification {
         notificationBuilder.setContentTitle(notificationTitle);
         notificationBuilder.setSmallIcon(getIcon());
         notificationBuilder.setContentText(getContentText());
+        notificationBuilder.setGroup(getGroupName());
         NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
         wearableExtender.addAction(action);
         wearableExtender = addStuffToExtender(wearableExtender);
@@ -66,10 +67,12 @@ public abstract class Dictification {
         notificationBuilder.build();
 
         notification = notificationBuilder.build();
-//        notification.priority = Notification.PRIORITY_MIN;
+        notification.priority = getPriority();
 //        notification.flags |= Notification.FLAG_NO_CLEAR;
         notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
     }
+
+    abstract String getGroupName();
 
     protected abstract boolean vibrate();
 
@@ -91,4 +94,7 @@ public abstract class Dictification {
         return new Random().nextInt();
     }
 
+    int getPriority() {
+        return Notification.PRIORITY_DEFAULT;
+    }
 }

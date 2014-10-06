@@ -85,4 +85,10 @@ public class SnoozeNotification extends Dictification {
     protected boolean vibrate() {
         return true;
     }
+
+    @Override
+    String getGroupName() {
+        return "SNOOZE_GROUP";
+    }
+
 }

@@ -67,4 +67,9 @@ public class CreateNotification extends Dictification {
         return false;
     }
 
+    @Override
+    String getGroupName() {
+        return "CREATE_GROUP";
+    }
+
 }
