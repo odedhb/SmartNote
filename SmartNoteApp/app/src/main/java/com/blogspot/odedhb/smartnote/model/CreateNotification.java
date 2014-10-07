@@ -69,7 +69,7 @@ public class CreateNotification extends Dictification {
 
     @Override
     String getGroupName() {
-        return "CREATE_GROUP";
+        return null;
     }
 
 }

@@ -53,7 +53,11 @@ public abstract class Dictification {
         notificationBuilder.setContentTitle(notificationTitle);
         notificationBuilder.setSmallIcon(getIcon());
         notificationBuilder.setContentText(getContentText());
-        notificationBuilder.setGroup(getGroupName());
+
+        if (getGroupName() != null) {
+            notificationBuilder.setGroup(getGroupName());
+        }
+
         NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
         wearableExtender.addAction(action);
         wearableExtender = addStuffToExtender(wearableExtender);
