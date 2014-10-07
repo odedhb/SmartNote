@@ -85,9 +85,13 @@ public abstract class Dictification {
     protected abstract NotificationCompat.WearableExtender addStuffToExtender(NotificationCompat.WearableExtender wearableExtender);
 
     public void show() {
+
+        if (App.instance.showingNotifications.contains(notificationTitle)) return;
+
         NotificationManager notificationManager =
                 (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(getId(), notification);
+        App.instance.showingNotifications.add(notificationTitle);
     }
 
     abstract String getContentText();

@@ -7,11 +7,9 @@ import android.content.Intent;
 import android.text.format.DateUtils;
 
 import com.blogspot.odedhb.smartnote.runners.AlarmIntentService;
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
 
-import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by oded on 9/21/14.
@@ -20,10 +18,11 @@ import java.util.List;
 public class App extends Application {
 
 
-    private static App instance;
+    public static App instance;
 
     public App() {
         instance = this;
+        showingNotifications = new HashSet<String>();
     }
 
     public static App getContext() {
@@ -44,8 +43,9 @@ public class App extends Application {
 //                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 DateUtils.SECOND_IN_MILLIS * 30,
                 DateUtils.SECOND_IN_MILLIS * 30, pendingIntent);
-
     }
+
+    public Set<String> showingNotifications;
 
 
 }

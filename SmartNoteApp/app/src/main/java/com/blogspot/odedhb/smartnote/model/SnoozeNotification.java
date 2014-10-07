@@ -6,6 +6,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.blogspot.odedhb.smartnote.App;
 import com.blogspot.odedhb.smartnote.runners.DeleteNotificationService;
+import com.blogspot.odedhb.smartnote.runners.DismissSnoozeNotificationService;
 
 import java.util.List;
 
@@ -55,12 +56,17 @@ public class SnoozeNotification extends Dictification {
 
     @Override
     protected NotificationCompat.Builder addStuffToNotification(NotificationCompat.Builder notificationBuilder) {
-
-
         notificationBuilder.addAction(android.R.drawable.ic_delete, "Remove", deletePendingIntent());
-
-
+        notificationBuilder.setDeleteIntent(getDismissPendingIntent());
         return notificationBuilder;
+    }
+
+    private PendingIntent getDismissPendingIntent() {
+        Intent intent = new Intent(App.getContext(), DismissSnoozeNotificationService.class);
+        intent.putExtra(SnoozeNotification.ORIGINAL_ITEM_DESC, notificationTitle);
+
+        return PendingIntent.getService(App.getContext(), notificationTitle.hashCode() - 1, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     PendingIntent deletePendingIntent() {

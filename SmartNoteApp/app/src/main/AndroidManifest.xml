@@ -38,6 +38,7 @@
         <service android:name=".runners.DeleteNotificationService"></service>
         <service android:name=".runners.AlarmIntentService"></service>
         <service android:name=".runners.ShowAllService"></service>
+        <service android:name=".runners.DismissSnoozeNotificationService"></service>
 
     </application>
 

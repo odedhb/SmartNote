@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import com.blogspot.odedhb.smartnote.App;
 import com.blogspot.odedhb.smartnote.model.CreateNotification;
 import com.blogspot.odedhb.smartnote.model.Item;
 
@@ -22,6 +23,6 @@ public class AlarmIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         new CreateNotification().show();
         Item.popAllOverDue();
-        Log.d("Periodic", "" + System.currentTimeMillis());
+        Log.d("Periodic", "" + System.currentTimeMillis() + " showing:"+App.instance.showingNotifications.size());
     }
 }
