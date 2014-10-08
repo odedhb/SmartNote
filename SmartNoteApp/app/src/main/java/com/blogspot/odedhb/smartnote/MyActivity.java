@@ -9,19 +9,20 @@ import com.blogspot.odedhb.smartnote.model.Item;
 
 public class MyActivity extends Activity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
         App.periodicCheckForOverdueItems();
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-//        App.getContext().putContextOnApp(this);
 
         StringBuffer stringBuffer = new StringBuffer();
 
@@ -30,7 +31,7 @@ public class MyActivity extends Activity {
         }
 
         ((TextView) findViewById(R.id.main_message)).setText(stringBuffer);
-
     }
+
 
 }

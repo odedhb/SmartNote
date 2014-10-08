@@ -17,10 +17,6 @@ public class ShowAllService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        /*for (Item item : Item.getAll()) {
-            item.time = System.currentTimeMillis() - DateUtils.MINUTE_IN_MILLIS;
-            item.save();
-        }*/
         Item.popAllOverDue();
         Item.popAll();
     }

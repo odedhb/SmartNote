@@ -41,7 +41,7 @@ public class CreateNotification extends Dictification {
     PendingIntent showAllPendingIntent() {
 
         Intent intent = new Intent(App.getContext(), ShowAllService.class);
-        intent.putExtra(SnoozeNotification.ORIGINAL_ITEM_DESC, notificationTitle);
+//        intent.putExtra(SnoozeNotification.ORIGINAL_ITEM_DESC, notificationTitle);
 
         return PendingIntent.getService(App.getContext(), 1982, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
