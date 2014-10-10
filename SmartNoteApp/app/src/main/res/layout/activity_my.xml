@@ -10,6 +10,7 @@
     android:background="#dddad0">
 
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/main_message"
         android:text="Buy Groceries"
@@ -29,5 +30,19 @@
 
 
     </LinearLayout>
+=======
+    <Button
+        android:layout_width="wrap_content"
+        android:onClick="createItem"
+        android:text="CREATE"
+        android:layout_height="wrap_content" />
+>>>>>>> FETCH_HEAD
+
+        <TextView
+            android:id="@+id/main_message"
+            android:layout_marginTop="64dp"
+            android:text="@string/main_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 </RelativeLayout>
