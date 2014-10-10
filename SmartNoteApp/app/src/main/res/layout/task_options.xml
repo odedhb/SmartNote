@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MyActivity"
+    android:background="#dddad0">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="8dp"
+            android:layout_marginBottom="6dp">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/main_message"
+            android:text="Buy Groceries"
+            android:gravity="center|left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:typeface="serif"
+            android:textSize="18sp"
+/>
+
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:onClick="createItem"
+            android:text="Set Due Date"
+            android:drawableLeft="@drawable/calendar_icon"
+            android:drawablePadding="8dp"
+            android:layout_height="wrap_content"
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:gravity="center_vertical|left"
+            android:textColor="#fff"
+
+            android:background="@drawable/round_rect_shape"
+            android:layout_marginBottom="6dp" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:onClick="createItem"
+            android:text="Notes"
+            android:drawableLeft="@drawable/note_icon"
+            android:drawablePadding="8dp"
+            android:layout_height="wrap_content"
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:gravity="center_vertical|left"
+            android:textColor="#fff"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/round_rect_shape"
+            android:layout_marginBottom="6dp" />
+
+
+    </LinearLayout>
+
+
+    />
+
+
+</RelativeLayout>

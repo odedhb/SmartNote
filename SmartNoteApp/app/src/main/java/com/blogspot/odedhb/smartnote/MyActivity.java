@@ -42,6 +42,7 @@ public class MyActivity extends Activity {
     public void createItem(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         builder.setTitle("Title");
 
         // Set up the input
@@ -67,6 +68,16 @@ public class MyActivity extends Activity {
                 dialog.cancel();
             }
         });
+
+        builder.show();
+
+    }
+
+    public void editItem(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setView(getLayoutInflater().inflate(R.layout.task_options,null));
 
         builder.show();
 

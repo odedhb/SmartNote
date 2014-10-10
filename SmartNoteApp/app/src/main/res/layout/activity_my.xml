@@ -37,7 +37,8 @@
             android:layout_marginBottom="6dp"
             />
 
-        <include layout="@layout/item" />
+        <include layout="@layout/item"
+            />
 
 
     </LinearLayout>
