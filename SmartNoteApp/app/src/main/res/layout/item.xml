@@ -68,6 +68,7 @@
 
 
         <TextView
+            android:id="@+id/item_description"
             android:text="Buy Groceries"
             android:typeface="serif"
             android:layout_width="wrap_content"

@@ -9,19 +9,11 @@
     tools:context=".MyActivity"
     android:background="#dddad0">
 
-
-    <TextView
-        android:id="@+id/main_message"
-        android:text="Buy Groceries"
-        android:typeface="serif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <Button
             android:layout_width="match_parent"
@@ -34,17 +26,15 @@
             android:textColor="#fff"
             android:layout_gravity="center_vertical"
             android:background="@drawable/round_rect_shape"
-            android:layout_marginBottom="6dp"
-            />
+            android:layout_marginBottom="6dp" />
 
-        <include layout="@layout/item"
-            />
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/item_list"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>
-
-
-    />
 
 
 </RelativeLayout>

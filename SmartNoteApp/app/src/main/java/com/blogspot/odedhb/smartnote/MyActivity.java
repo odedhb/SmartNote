@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blogspot.odedhb.smartnote.controller.ItemAdapter;
 import com.blogspot.odedhb.smartnote.model.Item;
 
 
 public class MyActivity extends Activity {
 
+
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,10 @@ public class MyActivity extends Activity {
 
         App.periodicCheckForOverdueItems();
 
+        getActionBar().hide();
+
+        listView = (ListView) findViewById(R.id.item_list);
+        listView.setAdapter(new ItemAdapter(this));
 
     }
 
@@ -29,13 +37,13 @@ public class MyActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        StringBuffer stringBuffer = new StringBuffer();
+        /*StringBuffer stringBuffer = new StringBuffer();
 
         for (Item item : Item.getAll()) {
             stringBuffer.append(item.desc).append("\n").append(item.timeForDisplay()).append("\n\n");
         }
 
-        ((TextView) findViewById(R.id.main_message)).setText(stringBuffer);
+        ((TextView) findViewById(R.id.main_message)).setText(stringBuffer);*/
     }
 
 
@@ -77,7 +85,7 @@ public class MyActivity extends Activity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setView(getLayoutInflater().inflate(R.layout.task_options,null));
+        builder.setView(getLayoutInflater().inflate(R.layout.task_options, null));
 
         builder.show();
 
