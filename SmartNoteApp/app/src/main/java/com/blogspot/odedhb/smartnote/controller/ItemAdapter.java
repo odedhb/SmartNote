@@ -1,16 +1,16 @@
 package com.blogspot.odedhb.smartnote.controller;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blogspot.odedhb.smartnote.MyActivity;
 import com.blogspot.odedhb.smartnote.R;
+import com.blogspot.odedhb.smartnote.SpeechDating.ListeningDialog;
 import com.blogspot.odedhb.smartnote.model.Item;
 
 /**
@@ -54,6 +54,7 @@ public class ItemAdapter extends BaseAdapter {
             viewHolder.itemDescription = (TextView) convertView.findViewById(R.id.item_description);
             viewHolder.itemTime = (TextView) convertView.findViewById(R.id.item_time);
             viewHolder.checkBox = (ImageButton) convertView.findViewById(R.id.item_done);
+            viewHolder.snoozeButton = convertView.findViewById(R.id.snooze_item);
 
             // store the holder with the view.
             convertView.setTag(viewHolder);
@@ -69,6 +70,13 @@ public class ItemAdapter extends BaseAdapter {
             // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
             viewHolder.itemDescription.setText(getItem(position).desc);
             viewHolder.itemTime.setText(getItem(position).timeForDisplay());
+            viewHolder.snoozeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(), "Speak!", Toast.LENGTH_SHORT).show();
+                    new ListeningDialog(view.getContext()).show();
+                }
+            });
 //            viewHolder.itemDescription.setTag(item.);
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,5 +97,6 @@ public class ItemAdapter extends BaseAdapter {
         TextView itemDescription;
         TextView itemTime;
         ImageButton checkBox;
+        View snoozeButton;
     }
 }

@@ -85,6 +85,7 @@
             android:background="#d1d9e8"
             android:padding="6dp"
             android:layout_alignParentRight="true"
+            android:id="@+id/snooze_item"
             >
 
             <ImageView
