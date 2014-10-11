@@ -8,8 +8,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import com.blogspot.odedhb.smartnote.SpeechDating.utils.ConstantIdentifier;
-
 
 /**
  * Created by oded on 8/12/14.

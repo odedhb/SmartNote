@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.blogspot.odedhb.smartnote.MyActivity;
 import com.blogspot.odedhb.smartnote.R;
-import com.blogspot.odedhb.smartnote.SpeechDating.ListeningDialog;
+import com.blogspot.odedhb.smartnote.SpeechDating.DateTimeListeningDialog;
 import com.blogspot.odedhb.smartnote.model.Item;
 
 /**
@@ -74,7 +74,7 @@ public class ItemAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(view.getContext(), "Speak!", Toast.LENGTH_SHORT).show();
-                    new ListeningDialog(view.getContext()).show();
+                    new DateTimeListeningDialog(view.getContext()).show();
                 }
             });
 //            viewHolder.itemDescription.setTag(item.);

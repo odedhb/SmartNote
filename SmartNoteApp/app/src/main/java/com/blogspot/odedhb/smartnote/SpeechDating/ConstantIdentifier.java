@@ -1,4 +1,4 @@
-package com.blogspot.odedhb.smartnote.SpeechDating.utils;
+package com.blogspot.odedhb.smartnote.SpeechDating;
 
 import java.lang.reflect.Field;
 

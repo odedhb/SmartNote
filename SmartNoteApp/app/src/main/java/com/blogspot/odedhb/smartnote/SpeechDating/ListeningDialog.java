@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ListeningDialog extends Dialog {
 
-    private final Context context;
+    protected final Context context;
     SpeechRecognizer speechRecognizer;
     Intent speechRecognitionIntent;
     private AudioManager audioManagerService;
@@ -63,12 +63,6 @@ public class ListeningDialog extends Dialog {
     public void onSpeechResults(List<String> speechGuesses) {
         String speech = speechGuesses.get(0);
         setTitle(speech);
-
-        Long time = new SpeechDate(speech).getTimeInMillis();
-
-        TextView content = new TextView(context);
-        content.setText(Item.timeForDisplay(time));
-        setContentView(content);
     }
 
     void startListening() {
