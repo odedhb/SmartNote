@@ -2,10 +2,10 @@ package com.blogspot.odedhb.smartnote;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ public class MyActivity extends Activity {
 
 
     private ListView listView;
+    private EditText createItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,54 +32,14 @@ public class MyActivity extends Activity {
         listView = (ListView) findViewById(R.id.item_list);
         listView.setAdapter(new ItemAdapter(this));
 
+        createItem = (EditText) findViewById(R.id.create_edit_text);
+        createItem.setOnEditorActionListener(new EditorActionDoneListener());
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        /*StringBuffer stringBuffer = new StringBuffer();
-
-        for (Item item : Item.getAll()) {
-            stringBuffer.append(item.desc).append("\n").append(item.timeForDisplay()).append("\n\n");
-        }
-
-        ((TextView) findViewById(R.id.main_message)).setText(stringBuffer);*/
-    }
-
-
-    public void createItem(View view) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle("Title");
-
-        // Set up the input
-        final EditText input = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        builder.setView(input);
-
-// Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String text = input.getText().toString();
-                if (text == null || text.length() < 1) {
-                    return;
-                }
-                new Item(text, System.currentTimeMillis()).save();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-
     }
 
     public void editItem(View view) {
@@ -89,5 +50,22 @@ public class MyActivity extends Activity {
 
         builder.show();
 
+    }
+
+    class EditorActionDoneListener implements TextView.OnEditorActionListener {
+
+        @Override
+        public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+
+            if (actionId != EditorInfo.IME_ACTION_DONE) return false;
+
+            String text = textView.getText().toString();
+            if (text == null || text.length() < 1) {
+                return false;
+            }
+            new Item(text, System.currentTimeMillis()).save();
+
+            return true;
+        }
     }
 }
