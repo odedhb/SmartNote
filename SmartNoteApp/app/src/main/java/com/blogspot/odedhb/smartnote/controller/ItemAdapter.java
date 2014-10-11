@@ -1,9 +1,12 @@
 package com.blogspot.odedhb.smartnote.controller;
 
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.blogspot.odedhb.smartnote.MyActivity;
@@ -26,8 +29,8 @@ public class ItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Item getItem(int i) {
+        return Item.getAll().get(i);
     }
 
     @Override
@@ -36,11 +39,11 @@ public class ItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolderItem viewHolder;
 
-        if(convertView==null){
+        if (convertView == null) {
 
             // inflate the layout
             LayoutInflater inflater = (myActivity).getLayoutInflater();
@@ -50,25 +53,31 @@ public class ItemAdapter extends BaseAdapter {
             viewHolder = new ViewHolderItem();
             viewHolder.itemDescription = (TextView) convertView.findViewById(R.id.item_description);
             viewHolder.itemTime = (TextView) convertView.findViewById(R.id.item_time);
+            viewHolder.checkBox = (ImageButton) convertView.findViewById(R.id.item_done);
 
             // store the holder with the view.
             convertView.setTag(viewHolder);
 
-        }else{
+        } else {
             // we've just avoided calling findViewById() on resource every time
             // just use the viewHolder
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
 
-        // object item based on the position
-        Item item = Item.getAll().get(position);
-
         // assign values if the object is not null
-        if(item != null) {
+        if (getItem(position) != null) {
             // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
-            viewHolder.itemDescription.setText(item.desc);
-            viewHolder.itemTime.setText(item.timeForDisplay());
+            viewHolder.itemDescription.setText(getItem(position).desc);
+            viewHolder.itemTime.setText(getItem(position).timeForDisplay());
 //            viewHolder.itemDescription.setTag(item.);
+            viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Item.delete(getItem(position).desc);
+                    notifyDataSetChanged();
+                }
+            });
+
         }
 
         return convertView;
@@ -79,5 +88,6 @@ public class ItemAdapter extends BaseAdapter {
     static class ViewHolderItem {
         TextView itemDescription;
         TextView itemTime;
+        ImageButton checkBox;
     }
 }
