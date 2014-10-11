@@ -8,6 +8,7 @@ import android.text.format.DateUtils;
 import com.blogspot.odedhb.smartnote.App;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +56,8 @@ public class Item {
             items.add(new Item(k, v));
         }
 
+        Collections.sort(items, new ItemComparator());
+
         return items;
     }
 
@@ -98,6 +101,13 @@ public class Item {
         //get all items
         for (Item item : Item.getAll()) {
             new SnoozeNotification(item.desc).show();
+        }
+    }
+
+    private static class ItemComparator implements java.util.Comparator<Item> {
+        @Override
+        public int compare(Item i, Item i2) {
+            return ((Long) i.time).compareTo(i2.time);
         }
     }
 }
