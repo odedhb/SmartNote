@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
+import android.widget.TextView;
 
 import com.blogspot.odedhb.smartnote.model.Item;
 
@@ -61,12 +62,13 @@ public class ListeningDialog extends Dialog {
 
     public void onSpeechResults(List<String> speechGuesses) {
         String speech = speechGuesses.get(0);
+        setTitle(speech);
 
         Long time = new SpeechDate(speech).getTimeInMillis();
 
-
-        setTitle(Item.timeForDisplay(time));
-
+        TextView content = new TextView(context);
+        content.setText(Item.timeForDisplay(time));
+        setContentView(content);
     }
 
     void startListening() {
