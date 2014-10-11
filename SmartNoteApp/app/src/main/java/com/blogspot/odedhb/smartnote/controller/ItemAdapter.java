@@ -1,6 +1,5 @@
 package com.blogspot.odedhb.smartnote.controller;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,8 @@ public class ItemAdapter extends BaseAdapter {
 
             // well set up the ViewHolder
             viewHolder = new ViewHolderItem();
-            viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.item_description);
+            viewHolder.itemDescription = (TextView) convertView.findViewById(R.id.item_description);
+            viewHolder.itemTime = (TextView) convertView.findViewById(R.id.item_time);
 
             // store the holder with the view.
             convertView.setTag(viewHolder);
@@ -66,8 +66,9 @@ public class ItemAdapter extends BaseAdapter {
         // assign values if the object is not null
         if(item != null) {
             // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
-            viewHolder.textViewItem.setText(item.desc);
-//            viewHolder.textViewItem.setTag(item.);
+            viewHolder.itemDescription.setText(item.desc);
+            viewHolder.itemTime.setText(item.timeForDisplay());
+//            viewHolder.itemDescription.setTag(item.);
         }
 
         return convertView;
@@ -76,6 +77,7 @@ public class ItemAdapter extends BaseAdapter {
 
 
     static class ViewHolderItem {
-        TextView textViewItem;
+        TextView itemDescription;
+        TextView itemTime;
     }
 }
