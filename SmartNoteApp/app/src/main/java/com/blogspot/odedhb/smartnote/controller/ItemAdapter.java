@@ -74,7 +74,13 @@ public class ItemAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(view.getContext(), "Speak!", Toast.LENGTH_SHORT).show();
-                    new DateTimeListeningDialog(view.getContext()).show();
+                    new DateTimeListeningDialog(view.getContext(), new DateTimeListeningDialog.OnSubmitListener() {
+                        @Override
+                        public void onSubmit(long time) {
+                            new Item(getItem(position).desc, time).save();
+                            notifyDataSetChanged();
+                        }
+                    }).show();
                 }
             });
 //            viewHolder.itemDescription.setTag(item.);

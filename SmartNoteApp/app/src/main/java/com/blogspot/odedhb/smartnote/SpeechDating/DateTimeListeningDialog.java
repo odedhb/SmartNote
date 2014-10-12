@@ -1,6 +1,9 @@
 package com.blogspot.odedhb.smartnote.SpeechDating;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blogspot.odedhb.smartnote.model.Item;
@@ -11,20 +14,49 @@ import java.util.List;
  * Created by oded on 10/11/14.
  */
 public class DateTimeListeningDialog extends ListeningDialog {
-    public DateTimeListeningDialog(Context context) {
+    private OnSubmitListener submitListener;
+
+    public DateTimeListeningDialog(Context context, OnSubmitListener submitListener) {
         super(context);
+        this.submitListener = submitListener;
     }
 
     @Override
     public void onSpeechResults(List<String> speechGuesses) {
         String speech = speechGuesses.get(0);
         setTitle(speech);
-        Long time = new SpeechDate(speech).getTimeInMillis();
+        final Long time = new SpeechDate(speech).getTimeInMillis();
 
         if (time < System.currentTimeMillis()) return;
 
         TextView content = new TextView(context);
         content.setText(Item.timeForDisplay(time));
-        setContentView(content);
+
+
+        LinearLayout ll = new LinearLayout(context);
+        ll.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(30, 20, 30, 0);
+
+        Button okButton = new Button(context);
+        okButton.setText(android.R.string.ok);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitListener.onSubmit(time);
+                dismiss();
+            }
+        });
+        ll.addView(content, layoutParams);
+        ll.addView(okButton, layoutParams);
+
+        setContentView(ll);
+    }
+
+    public interface OnSubmitListener {
+        void onSubmit(long time);
     }
 }
