@@ -23,15 +23,24 @@ public class DateTimeListeningDialog extends ListeningDialog {
 
     @Override
     public void onSpeechResults(List<String> speechGuesses) {
-        String speech = speechGuesses.get(0);
-        setTitle(speech);
-        final Long time = new SpeechDate(speech).getTimeInMillis();
+        setTitle(speechGuesses.get(0));
+        parse(speechGuesses);
+    }
+
+    @Override
+    public void onPartialSpeechResults(List<String> speechGuesses) {
+        setTitle(speechGuesses.get(0));
+        parse(speechGuesses);
+    }
+
+    void parse(List<String> speechGuesses) {
+
+        final Long time = new SpeechDate(speechGuesses).getTimeInMillis();
 
         if (time < System.currentTimeMillis()) return;
 
         TextView content = new TextView(context);
         content.setText(Item.timeForDisplay(time));
-
 
         LinearLayout ll = new LinearLayout(context);
         ll.setOrientation(LinearLayout.VERTICAL);
