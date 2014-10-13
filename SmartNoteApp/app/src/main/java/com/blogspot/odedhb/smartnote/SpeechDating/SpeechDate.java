@@ -50,7 +50,10 @@ public class SpeechDate {
     private static String normalize(String voiceInput) {
         return voiceInput
                 .replace("(?i)doors", "2 hours")
-                .replace("(?i)a_m", "a.m.");
+                .replace("(?i)a_m", "a.m.")
+                .replace("noon", "tomorrow noon")
+                .replace("maroon", "tomorrow noon")
+                ;
     }
 
     public Long getTimeInMillis() {
