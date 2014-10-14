@@ -53,6 +53,9 @@ public class SpeechDate {
                 .replace("(?i)a_m", "a.m.")
                 .replace("noon", "tomorrow noon")
                 .replace("maroon", "tomorrow noon")
+                .replace("nowhere and a half", "90 minutes")
+                .replace("nowhere and a half", "90 minutes")
+                .replace("an hour and a half", "90 minutes")
                 ;
     }
 
