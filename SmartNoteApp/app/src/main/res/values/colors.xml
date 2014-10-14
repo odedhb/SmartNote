@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="backgroundcolor" type="color">#dddad0</item>
+    <item name="header" type="color">#9B9B9B</item>
+    <item name="headertext" type="color">#FFF</item>
+    <item name="taskbackground" type="color">#f1f1f1</item>
+    <item name="redtext" type="color">#E1394E</item>
+    <item name="orangetext" type="color">#F5A623</item>
+
+
+
+
+</resources> 

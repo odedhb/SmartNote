@@ -19,7 +19,7 @@
 
 
         <TextView
-            android:text="Buy Groceries"
+            android:text="@string/buy_groceries"
             android:typeface="serif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,16 +37,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5 Min"
+                android:text="@string/due_today"
                 android:gravity="right"
                 android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Today"
-                android:gravity="right"
-                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -66,7 +60,7 @@
 
 
         <TextView
-            android:text="Write Something ..."
+            android:text="@string/write_something"
             android:typeface="serif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,11 +88,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Oct 9"
-                android:gravity="right"
-                android:layout_gravity="center_vertical"
-                android:textSize="16sp"
-                android:padding="4dp"/>
+                android:text="@string/today"
+              android:gravity="right"
+                android:textSize="14sp"
+                android:padding="4dp"
+                android:lines="2"/>
+
+
+
+
+
+
+
+
+
 
 
         </LinearLayout>
