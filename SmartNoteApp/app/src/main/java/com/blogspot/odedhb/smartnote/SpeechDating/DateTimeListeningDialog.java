@@ -40,7 +40,7 @@ public class DateTimeListeningDialog extends ListeningDialog {
         if (time < System.currentTimeMillis()) return;
 
         TextView content = new TextView(context);
-        content.setText(Item.timeForDisplay(time));
+        content.setText(Item.fullTimeForDisplay(time));
 
         LinearLayout ll = new LinearLayout(context);
         ll.setOrientation(LinearLayout.VERTICAL);

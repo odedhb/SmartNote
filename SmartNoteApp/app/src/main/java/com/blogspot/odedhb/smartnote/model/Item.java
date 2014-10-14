@@ -9,6 +9,7 @@ import com.blogspot.odedhb.smartnote.App;
 import com.blogspot.odedhb.smartnote.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -92,15 +93,51 @@ public class Item {
     }
 
     public String timeForDisplay() {
-        return timeForDisplay(time);
+
+        if (getDelta() < DateUtils.HOUR_IN_MILLIS * 2) {
+            return DateUtils.getRelativeDateTimeString(App.getContext(), time, DateUtils.MINUTE_IN_MILLIS,
+                    DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString();
+        }
+
+        if (getDelta() > DateUtils.DAY_IN_MILLIS * 2) {
+            return DateUtils.formatDateTime(App.getContext(), time,
+                    DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+        }
+
+//        if (isTaskForTomorrow()) {
+        return
+                DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(),
+                        DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString()
+                        + ", " +
+                        DateUtils.formatDateTime(App.getContext(), time,
+                                DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_TIME);
+
+
+//        return exact + "\n" + relative;
     }
 
-    public static String timeForDisplay(long timeInMillis) {
+    private boolean isTaskForTomorrow() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(time);
+        int taskDay = cal.get(Calendar.DAY_OF_YEAR);
+
+        cal.setTimeInMillis(System.currentTimeMillis());
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+
+        int tomorrowDay = cal.get(Calendar.DAY_OF_YEAR);
+
+        if (taskDay == tomorrowDay) return true;
+
+        return false;
+    }
+
+    public static String fullTimeForDisplay(long timeInMillis) {
         String relative = DateUtils.getRelativeTimeSpanString(timeInMillis, System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL).toString();
         String exact = DateUtils.formatDateTime(App.getContext(), timeInMillis,
                 DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
         return exact + "\n" + relative;
     }
+
 
     public static void popAll() {
         //get all items
@@ -117,12 +154,15 @@ public class Item {
     }
 
     public int dueDateColor() {
-        long delta = time - System.currentTimeMillis();
 
-        if (delta > DateUtils.DAY_IN_MILLIS) return R.color.due_tomorrow_text;
+        if (getDelta() > DateUtils.DAY_IN_MILLIS) return R.color.due_tomorrow_text;
 
-        if (delta > 0l) return R.color.due_today_text;
+        if (getDelta() > 0l) return R.color.due_today_text;
 
         return R.color.overdue_text;
+    }
+
+    long getDelta() {
+        return time - System.currentTimeMillis();
     }
 }
