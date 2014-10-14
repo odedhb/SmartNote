@@ -1,5 +1,6 @@
 package com.blogspot.odedhb.smartnote.controller;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class ItemAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+        final Item item = getItem(position);
+
         ViewHolderItem viewHolder;
 
         if (convertView == null) {
@@ -66,10 +69,12 @@ public class ItemAdapter extends BaseAdapter {
         }
 
         // assign values if the object is not null
-        if (getItem(position) != null) {
+        if (item != null) {
             // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
-            viewHolder.itemDescription.setText(getItem(position).desc);
-            viewHolder.itemTime.setText(getItem(position).timeForDisplay());
+            viewHolder.itemDescription.setText(item.desc);
+            viewHolder.itemTime.setText(item.timeForDisplay());
+            viewHolder.itemTime.setTextColor(convertView.getContext().getResources().getColor(item.dueDateColor()));
+            Log.d("task_color", "" + item.dueDateColor());
             viewHolder.snoozeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -77,7 +82,7 @@ public class ItemAdapter extends BaseAdapter {
                     new DateTimeListeningDialog(view.getContext(), new DateTimeListeningDialog.OnSubmitListener() {
                         @Override
                         public void onSubmit(long time) {
-                            new Item(getItem(position).desc, time).save();
+                            new Item(item.desc, time).save();
                             notifyDataSetChanged();
                         }
                     }).show();
@@ -87,7 +92,7 @@ public class ItemAdapter extends BaseAdapter {
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Item.delete(getItem(position).desc);
+                    Item.delete(item.desc);
                     notifyDataSetChanged();
                 }
             });

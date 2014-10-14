@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 
 import com.blogspot.odedhb.smartnote.App;
+import com.blogspot.odedhb.smartnote.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -113,5 +114,15 @@ public class Item {
         public int compare(Item i, Item i2) {
             return ((Long) i.time).compareTo(i2.time);
         }
+    }
+
+    public int dueDateColor() {
+        long delta = time - System.currentTimeMillis();
+
+        if (delta > DateUtils.DAY_IN_MILLIS) return R.color.due_tomorrow_text;
+
+        if (delta > 0l) return R.color.due_today_text;
+
+        return R.color.overdue_text;
     }
 }
