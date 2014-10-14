@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import com.blogspot.odedhb.smartnote.App;
+import com.blogspot.odedhb.smartnote.R;
 import com.blogspot.odedhb.smartnote.runners.DeleteNotificationService;
 import com.blogspot.odedhb.smartnote.runners.DismissSnoozeNotificationService;
 
@@ -46,7 +47,7 @@ public class SnoozeNotification extends Dictification {
 
     @Override
     int getIcon() {
-        return android.R.drawable.ic_lock_idle_alarm;
+        return R.drawable.snooze_icon;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class SnoozeNotification extends Dictification {
 
     @Override
     protected NotificationCompat.Builder addStuffToNotification(NotificationCompat.Builder notificationBuilder) {
-        notificationBuilder.addAction(android.R.drawable.ic_delete, "Remove", deletePendingIntent());
+        notificationBuilder.addAction(R.drawable.delete_icon, "Remove", deletePendingIntent());
         notificationBuilder.setDeleteIntent(getDismissPendingIntent());
         return notificationBuilder;
     }
@@ -82,7 +83,7 @@ public class SnoozeNotification extends Dictification {
     protected NotificationCompat.WearableExtender addStuffToExtender(NotificationCompat.WearableExtender wearableExtender) {
 
         NotificationCompat.Action action =
-                new NotificationCompat.Action.Builder(android.R.drawable.ic_delete, "Delete", deletePendingIntent()).build();
+                new NotificationCompat.Action.Builder(R.drawable.delete_icon, "Delete", deletePendingIntent()).build();
         return wearableExtender.addAction(action);
     }
 

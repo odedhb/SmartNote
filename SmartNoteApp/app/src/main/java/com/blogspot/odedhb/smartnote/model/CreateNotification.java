@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import com.blogspot.odedhb.smartnote.App;
+import com.blogspot.odedhb.smartnote.R;
 import com.blogspot.odedhb.smartnote.runners.ShowAllService;
 
 /**
@@ -32,7 +33,7 @@ public class CreateNotification extends Dictification {
     protected NotificationCompat.WearableExtender addStuffToExtender(NotificationCompat.WearableExtender wearableExtender) {
 
         NotificationCompat.Action action =
-                new NotificationCompat.Action.Builder(android.R.drawable.ic_menu_agenda, "Show all", showAllPendingIntent()).build();
+                new NotificationCompat.Action.Builder(R.drawable.show_all_icon, "Show all", showAllPendingIntent()).build();
         return wearableExtender.addAction(action);
 
     }
@@ -54,7 +55,7 @@ public class CreateNotification extends Dictification {
 
     @Override
     int getIcon() {
-        return android.R.drawable.ic_menu_add;
+        return R.drawable.add_new_icon;
     }
 
     @Override
