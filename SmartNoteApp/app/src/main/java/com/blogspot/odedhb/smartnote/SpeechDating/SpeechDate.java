@@ -51,11 +51,13 @@ public class SpeechDate {
         return voiceInput
                 .replace("(?i)doors", "2 hours")
                 .replace("(?i)a_m", "a.m.")
-                .replace("noon", "tomorrow noon")
-                .replace("maroon", "tomorrow noon")
-                .replace("nowhere and a half", "90 minutes")
-                .replace("nowhere and a half", "90 minutes")
-                .replace("an hour and a half", "90 minutes")
+                .replace("(?i)noon", "tomorrow noon")
+                .replace("(?i)maroon", "tomorrow noon")
+                .replace("(?i)nowhere and a half", "90 minutes")
+                .replace("(?i)nowhere and a half", "90 minutes")
+                .replace("(?i)an hour and a half", "90 minutes")
+                .replace("(?i)free horse", "3 hours")
+                .replace("(?i)all morning", "tomorrow morning")
                 ;
     }
 
