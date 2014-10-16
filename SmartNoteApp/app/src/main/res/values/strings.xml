@@ -9,5 +9,6 @@
     <string name="write_something">Write Something</string>
     <string name="due_today">Due Today</string>
     <string name="today">Today</string>
+    <string name="due">Due:</string>
 
 </resources>
