@@ -1,11 +1,13 @@
 package com.blogspot.odedhb.smartnote.SpeechDating;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blogspot.odedhb.smartnote.R;
 import com.blogspot.odedhb.smartnote.model.Item;
 
 import java.util.List;
@@ -62,7 +64,14 @@ public class DateTimeListeningDialog extends ListeningDialog {
         ll.addView(content, layoutParams);
         ll.addView(okButton, layoutParams);
 
-        setContentView(ll);
+
+        //temp
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService
+                (Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.snooze_layout,null);
+
+        setContentView(view);
     }
 
     public interface OnSubmitListener {

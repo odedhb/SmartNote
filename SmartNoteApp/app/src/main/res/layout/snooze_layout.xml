@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="6dp"
+    android:background="@color/background_color">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OCT"
+            android:textColor="@color/header_text"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22"
+            android:textColor="@color/header_text"
+            android:textSize="22sp"
+            android:layout_marginTop="28dp"
+            android:layout_marginLeft="20dp" />
+
+
+
+
+        <TextView
+            android:id="@+id/item_description"
+            android:text="@string/tomorrow_morning"
+android:layout_marginLeft="70dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/header_text"
+            android:textSize="18sp"
+            android:layout_marginTop="28dp"
+ />
+
+
+
+</RelativeLayout>
