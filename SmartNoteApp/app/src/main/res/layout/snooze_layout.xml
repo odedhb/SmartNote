@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="6dp"
     android:background="@color/background_color">
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OCT"
             android:textColor="@color/header_text"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true" />
 
 
         <TextView
@@ -23,15 +27,19 @@
             android:textColor="@color/header_text"
             android:textSize="22sp"
             android:layout_marginTop="28dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_centerHorizontal="true" />
 
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="8">
 
 
         <TextView
             android:id="@+id/item_description"
             android:text="@string/tomorrow_morning"
-android:layout_marginLeft="70dp"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
@@ -39,8 +47,26 @@ android:layout_marginLeft="70dp"
             android:textColor="@color/header_text"
             android:textSize="18sp"
             android:layout_marginTop="28dp"
- />
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <Button
+            android:id="@+id/button1"
+            android:background="@drawable/selector_confirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/okay"
+            android:textSize="8sp"
+            android:layout_centerInParent="true" />
 
 
+    </RelativeLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

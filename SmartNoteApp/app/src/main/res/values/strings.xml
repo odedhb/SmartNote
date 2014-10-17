@@ -11,5 +11,6 @@
     <string name="today">Today</string>
     <string name="due">Due:</string>
     <string name="tomorrow_morning">TOMORROW MORNING</string>
+    <string name="okay">Okay</string>
 
 </resources>

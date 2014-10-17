@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:background="@color/header"
             android:textColor="#fff"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:textCursorDrawable="@null"/>
 
         <ListView
             android:layout_width="match_parent"
