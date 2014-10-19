@@ -1,5 +1,7 @@
 package com.blogspot.odedhb.smartnote.SpeechDating;
 
+import android.util.Log;
+
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
@@ -12,7 +14,7 @@ import java.util.List;
  */
 public class SpeechDate {
 
-    private Long timeInMillis;
+    private List<TimeHypotheses> timeHypothesis;
 
     public SpeechDate(CharSequence hypothesis) {
         List<String> hypotheses = new ArrayList<String>();
@@ -20,14 +22,21 @@ public class SpeechDate {
         setText(hypotheses);
     }
 
-    public SpeechDate(List<String> hypotheses) {
-        setText(hypotheses);
+    public SpeechDate(List<String> hypothesis) {
+        setText(hypothesis);
     }
 
-    private void setText(List<String> hypotheses) {
-        for (String hypothesis : hypotheses) {
-            timeInMillis = parseTimeFromText(hypothesis);
-            if (timeInMillis != 0) break;
+    private void setText(List<String> hypothesis) {
+        timeHypothesis = new ArrayList<TimeHypotheses>();
+
+        Log.d("time_debug : hypothesis", hypothesis.toString());
+
+        for (String hypo : hypothesis) {
+            long timeInMillis = parseTimeFromText(hypo);
+
+            if (timeInMillis == 0) continue;
+
+            timeHypothesis.add(new TimeHypotheses().setSpeech(hypo).setTimeInMillis(timeInMillis));
         }
     }
 
@@ -40,7 +49,13 @@ public class SpeechDate {
         List<DateGroup> groups = parser.parse(when);
         long target = 0;
         for (DateGroup group : groups) {
+
+            Log.d("time_debug : group", group.toString());
+
             List<Date> dates = group.getDates();
+
+            Log.d("time_debug : dates", dates.toString());
+
             target = dates.get(0).getTime();
         }
 
@@ -57,11 +72,12 @@ public class SpeechDate {
                 .replace("(?i)nowhere and a half", "90 minutes")
                 .replace("(?i)an hour and a half", "90 minutes")
                 .replace("(?i)free horse", "3 hours")
-                .replace("(?i)all morning", "tomorrow morning")
+                .replace("(?i)o clock", "o'clock")
+                .replace("(?i)o-clock", "o'clock")
                 ;
     }
 
-    public Long getTimeInMillis() {
-        return timeInMillis;
+    public TimeHypotheses getSelectedHypotheses() {
+        return timeHypothesis.get(0);
     }
 }

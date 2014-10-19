@@ -33,14 +33,23 @@ public class DateTimeListeningDialog extends ListeningDialog {
     @Override
     public void onPartialSpeechResults(List<String> speechGuesses) {
         setTitle(speechGuesses.get(0));
-        parse(speechGuesses);
+//        parse(speechGuesses);
     }
 
     void parse(List<String> speechGuesses) {
 
-        final Long time = new SpeechDate(speechGuesses).getTimeInMillis();
+        SpeechDate speechDate = new SpeechDate(speechGuesses);
+        TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
 
-        if (time < System.currentTimeMillis()) return;
+        setTitle(selectedHypotheses.getSpeech());
+
+        final Long time = selectedHypotheses.getTimeInMillis();
+
+        if (time < System.currentTimeMillis()) {
+            return;
+        }
+
+
         //temp
         LayoutInflater inflater = (LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);

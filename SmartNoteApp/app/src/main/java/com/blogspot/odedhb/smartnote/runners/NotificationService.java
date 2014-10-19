@@ -66,7 +66,7 @@ public class NotificationService extends IntentService {
     }
 
     void snooze(CharSequence speech, String originalItemDesc) {
-        Long time = new SpeechDate(speech).getTimeInMillis();
+        Long time = new SpeechDate(speech).getSelectedHypotheses().getTimeInMillis();
         if (time == null) return;
         if (time == 0l) return;
         new Item(originalItemDesc, time).save();
