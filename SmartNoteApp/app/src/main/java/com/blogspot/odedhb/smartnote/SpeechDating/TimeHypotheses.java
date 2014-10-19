@@ -1,5 +1,7 @@
 package com.blogspot.odedhb.smartnote.SpeechDating;
 
+import java.util.Calendar;
+
 /**
  * Created by oded on 10/19/14.
  */
@@ -9,7 +11,18 @@ public class TimeHypotheses {
     private String speech;
 
     public Long getTimeInMillis() {
-        return timeInMillis;
+
+        Long returnedTime = new Long(timeInMillis);
+
+        if (timeInMillis < System.currentTimeMillis()) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(timeInMillis);
+            calendar.add(Calendar.HOUR, 12);
+            returnedTime = calendar.getTimeInMillis();
+        }
+
+
+        return returnedTime;
     }
 
     public TimeHypotheses setTimeInMillis(Long timeInMillis) {
@@ -25,5 +38,10 @@ public class TimeHypotheses {
         this.speech = speech;
         return this;
 
+    }
+
+    @Override
+    public String toString() {
+        return getSpeech() + " : " + getTimeInMillis();
     }
 }

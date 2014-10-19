@@ -41,24 +41,25 @@ public class SpeechDate {
 
         String when = normalize(voiceInput);
 
+
         Parser parser = new Parser();
         List<DateGroup> groups = parser.parse(when);
         for (DateGroup group : groups) {
 
             Log.d("time_debug : group", group.getText());
-            Log.d("time_debug : group tree", group.getSyntaxTree().getText());
+//            Log.d("time_debug : group tree", group.getSyntaxTree().getText());
 
             List<Date> dates = group.getDates();
 
             for (Date date : dates) {
-                Log.d("time_debug : date", "" + date.getTime());
                 if (date.getTime() == 0) continue;
                 TimeHypotheses timeHypotheses = new TimeHypotheses().setSpeech(voiceInput).setTimeInMillis(date.getTime());
                 timeHypothesis.add(timeHypotheses);
-                Log.d("time_debug : selected hypotheses: ", timeHypotheses.getSpeech() + " : " + timeHypotheses.getTimeInMillis());
+                Log.d("time_debug : hypo: ", timeHypotheses.toString());
             }
         }
     }
+
 
     private static String normalize(String voiceInput) {
         return voiceInput

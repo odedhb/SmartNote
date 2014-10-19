@@ -47,7 +47,6 @@ public class DateTimeListeningDialog extends ListeningDialog {
 
         final Long time = selectedHypotheses.getTimeInMillis();
 
-
         //temp
         LayoutInflater inflater = (LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
