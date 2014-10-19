@@ -32,34 +32,32 @@ public class SpeechDate {
         Log.d("time_debug : hypothesis", hypothesis.toString());
 
         for (String hypo : hypothesis) {
-            long timeInMillis = parseTimeFromText(hypo);
-
-            if (timeInMillis == 0) continue;
-
-            timeHypothesis.add(new TimeHypotheses().setSpeech(hypo).setTimeInMillis(timeInMillis));
+            parseTimeFromText(hypo);
         }
     }
 
 
-    public static long parseTimeFromText(String voiceInput) {
+    public void parseTimeFromText(String voiceInput) {
 
         String when = normalize(voiceInput);
 
         Parser parser = new Parser();
         List<DateGroup> groups = parser.parse(when);
-        long target = 0;
         for (DateGroup group : groups) {
 
-            Log.d("time_debug : group", group.toString());
+            Log.d("time_debug : group", group.getText());
+            Log.d("time_debug : group tree", group.getSyntaxTree().getText());
 
             List<Date> dates = group.getDates();
 
-            Log.d("time_debug : dates", dates.toString());
-
-            target = dates.get(0).getTime();
+            for (Date date : dates) {
+                Log.d("time_debug : date", "" + date.getTime());
+                if (date.getTime() == 0) continue;
+                TimeHypotheses timeHypotheses = new TimeHypotheses().setSpeech(voiceInput).setTimeInMillis(date.getTime());
+                timeHypothesis.add(timeHypotheses);
+                Log.d("time_debug : selected hypotheses: ", timeHypotheses.getSpeech() + " : " + timeHypotheses.getTimeInMillis());
+            }
         }
-
-        return target;
     }
 
     private static String normalize(String voiceInput) {
@@ -78,6 +76,11 @@ public class SpeechDate {
     }
 
     public TimeHypotheses getSelectedHypotheses() {
+
+        if (timeHypothesis.size() < 1) {
+            return null;
+        }
+
         return timeHypothesis.get(0);
     }
 }

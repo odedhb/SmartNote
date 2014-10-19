@@ -41,13 +41,11 @@ public class DateTimeListeningDialog extends ListeningDialog {
         SpeechDate speechDate = new SpeechDate(speechGuesses);
         TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
 
+        if (selectedHypotheses == null) return;
+
         setTitle(selectedHypotheses.getSpeech());
 
         final Long time = selectedHypotheses.getTimeInMillis();
-
-        if (time < System.currentTimeMillis()) {
-            return;
-        }
 
 
         //temp
