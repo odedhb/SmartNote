@@ -1,15 +1,16 @@
 package com.blogspot.odedhb.smartnote.SpeechDating;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blogspot.odedhb.smartnote.App;
 import com.blogspot.odedhb.smartnote.R;
-import com.blogspot.odedhb.smartnote.model.Item;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -40,36 +41,33 @@ public class DateTimeListeningDialog extends ListeningDialog {
         final Long time = new SpeechDate(speechGuesses).getTimeInMillis();
 
         if (time < System.currentTimeMillis()) return;
+        //temp
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService
+                (Context.LAYOUT_INFLATER_SERVICE);
 
-        TextView content = new TextView(context);
-        content.setText(Item.fullTimeForDisplay(time));
+        View view = inflater.inflate(R.layout.snooze_layout, null);
 
-        LinearLayout ll = new LinearLayout(context);
-        ll.setOrientation(LinearLayout.VERTICAL);
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(time);
+        SimpleDateFormat monthDate = new SimpleDateFormat("MMM");
+        String monthName = monthDate.format(time).toUpperCase();
 
-        layoutParams.setMargins(30, 20, 30, 0);
+        SimpleDateFormat monthDay = new SimpleDateFormat("dd");
+        String dayInMonth = monthDay.format(time);
 
-        Button okButton = new Button(context);
-        okButton.setText(android.R.string.ok);
-        okButton.setOnClickListener(new View.OnClickListener() {
+        ((TextView) view.findViewById(R.id.day_in_month)).setText(dayInMonth);
+        ((TextView) view.findViewById(R.id.month_short)).setText(monthName);
+        ((TextView) view.findViewById(R.id.relative_date)).setText(DateUtils.formatDateTime(App.getContext(), time,
+                DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_ALL));
+
+        view.findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submitListener.onSubmit(time);
                 dismiss();
             }
         });
-        ll.addView(content, layoutParams);
-        ll.addView(okButton, layoutParams);
-
-
-        //temp
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService
-                (Context.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.snooze_layout,null);
 
         setContentView(view);
     }

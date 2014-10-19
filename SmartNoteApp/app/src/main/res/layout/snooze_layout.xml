@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OCT"
+            android:id="@+id/month_short"
             android:textColor="@color/header_text"
             android:layout_marginTop="12dp"
             android:layout_centerHorizontal="true" />
@@ -24,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="22"
+            android:id="@+id/day_in_month"
             android:textColor="@color/header_text"
             android:textSize="22sp"
             android:layout_marginTop="28dp"
@@ -36,9 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="8">
 
-
         <TextView
-            android:id="@+id/item_description"
+            android:id="@+id/relative_date"
             android:text="@string/tomorrow_morning"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"
@@ -57,14 +58,13 @@
         android:layout_weight="2">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/ok_button"
             android:background="@drawable/selector_confirmation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/okay"
             android:textSize="8sp"
             android:layout_centerInParent="true" />
-
 
     </RelativeLayout>
 
