@@ -128,7 +128,6 @@ public class ListeningDialog extends Dialog {
 
 
     public void onSpeechResults(List<String> speechGuesses) {
-        setTitle(speechGuesses.get(0));
         speechTextView.setText(speechGuesses.get(0));
     }
 
@@ -140,11 +139,6 @@ public class ListeningDialog extends Dialog {
     }
 
     public void onPartialSpeechResults(List<String> speechResults) {
-
-        /*if (progress == 0) {
-            progress = 1;
-        }*/
-
         speechTextView.setText(speechResults.get(0));
     }
 

@@ -39,15 +39,10 @@ public class DateTimeListeningDialog extends ListeningDialog {
 
     @Override
     public void onSpeechResults(List<String> speechGuesses) {
-        setTitle(speechGuesses.get(0));
+        super.onSpeechResults(speechGuesses);
         parse(speechGuesses);
     }
 
-    @Override
-    public void onPartialSpeechResults(List<String> speechGuesses) {
-        setTitle(speechGuesses.get(0));
-//        parse(speechGuesses);
-    }
 
     void parse(List<String> speechGuesses) {
 
