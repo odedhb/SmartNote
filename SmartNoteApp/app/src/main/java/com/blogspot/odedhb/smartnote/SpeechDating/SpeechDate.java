@@ -73,6 +73,7 @@ public class SpeechDate {
                 .replace("(?i)free horse", "3 hours")
                 .replace("(?i)o clock", "o'clock")
                 .replace("(?i)o-clock", "o'clock")
+                .replace("(?i)today's", "2 days")
                 ;
     }
 
