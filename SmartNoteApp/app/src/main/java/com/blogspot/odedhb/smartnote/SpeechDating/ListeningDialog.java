@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blogspot.odedhb.smartnote.R;
+
 import java.util.List;
 
 /**
@@ -93,7 +95,7 @@ public class ListeningDialog extends Dialog {
 
 
         speechTextView = new TextView(context);
-        speechTextView.setText("Speak!");
+        speechTextView.setText(R.string.speak);
         speechTextView.setTextSize(24);
         speechTextView.setTextColor(Color.parseColor("#ffffff"));
         RelativeLayout.LayoutParams speechTextViewParams = new RelativeLayout.LayoutParams(
