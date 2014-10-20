@@ -47,5 +47,8 @@ public class App extends Application {
 
     public Set<String> showingNotifications;
 
+    public PendingIntent openAppPendingIntent() {
+        return PendingIntent.getActivity(this, 704554, new Intent(this, MyActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+    }
 
 }

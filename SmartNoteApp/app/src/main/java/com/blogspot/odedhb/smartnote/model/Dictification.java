@@ -52,6 +52,7 @@ public abstract class Dictification {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(App.getContext());
         notificationBuilder.setContentTitle(notificationTitle);
         notificationBuilder.setSmallIcon(getIcon());
+        notificationBuilder.setContentIntent(App.instance.openAppPendingIntent());
         notificationBuilder.setContentText(getContentText());
 
         if (getGroupName() != null) {
