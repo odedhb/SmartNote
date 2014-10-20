@@ -81,14 +81,14 @@ public class ListeningDialog extends Dialog {
 
 
         progressBarView = new View(context);
-        progressBarView.setBackgroundColor(Color.parseColor("#ff0066cc"));
+        progressBarView.setBackgroundColor(Color.parseColor("#50ffffff"));
         RelativeLayout.LayoutParams progressBarLayoutParams = new RelativeLayout.LayoutParams(
                 16, 128);
         speechAnimation.addView(progressBarView, progressBarLayoutParams);
 
 
         soundBarView = new View(context);
-        soundBarView.setBackgroundColor(Color.parseColor("#ff00cc66"));
+        soundBarView.setBackgroundColor(Color.parseColor("#f8505b"));
         RelativeLayout.LayoutParams soundBarLayoutParams = new RelativeLayout.LayoutParams(
                 16, 128);
         speechAnimation.addView(soundBarView, soundBarLayoutParams);

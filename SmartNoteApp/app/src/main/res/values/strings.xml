@@ -13,5 +13,7 @@
     <string name="tomorrow_morning">TOMORROW MORNING</string>
     <string name="okay">Okay</string>
     <string name="speak">Speak! What time?</string>
+    <string name="confirm">Confirm</string>
+    <string name="time">TIME</string>
 
 </resources>

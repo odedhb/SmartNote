@@ -11,6 +11,6 @@
     <item name="button_color" type="color">#e6e6e6</item>
 
 
-
-
-</resources> 
+    <color name="transparent_header_text">#80ffffff</color>
+    <color name="animation_color">#f8505b</color>
+</resources>
