@@ -28,12 +28,13 @@ public class SpeechRecognitionListener implements RecognitionListener {
 
     @Override
     public void onBeginningOfSpeech() {
+        listeningDialog.onBeginningOfSpeech();
 
     }
 
     @Override
     public void onRmsChanged(float v) {
-
+        listeningDialog.onVoiceLevelChanged(v);
     }
 
     @Override
@@ -43,6 +44,7 @@ public class SpeechRecognitionListener implements RecognitionListener {
 
     @Override
     public void onEndOfSpeech() {
+        listeningDialog.onEndOfSpeech();
     }
 
     @Override

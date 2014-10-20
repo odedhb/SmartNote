@@ -1,13 +1,15 @@
 package com.blogspot.odedhb.smartnote.controller;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blogspot.odedhb.smartnote.MyActivity;
 import com.blogspot.odedhb.smartnote.R;
@@ -19,6 +21,7 @@ import com.blogspot.odedhb.smartnote.model.Item;
  */
 public class ItemAdapter extends BaseAdapter {
     private MyActivity myActivity;
+    private LayoutInflater inflater;
 
     public ItemAdapter(MyActivity myActivity) {
         this.myActivity = myActivity;
@@ -49,7 +52,7 @@ public class ItemAdapter extends BaseAdapter {
         if (convertView == null) {
 
             // inflate the layout
-            LayoutInflater inflater = (myActivity).getLayoutInflater();
+            inflater = (myActivity).getLayoutInflater();
             convertView = inflater.inflate(R.layout.item, parent, false);
 
             // well set up the ViewHolder
@@ -72,13 +75,25 @@ public class ItemAdapter extends BaseAdapter {
         if (item != null) {
             // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
             viewHolder.itemDescription.setText(item.desc);
+            viewHolder.itemDescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Dialog dialog = new Dialog(myActivity);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.setContentView(inflater.inflate(R.layout.preview_layout, null));
+                    ((TextView) dialog.findViewById(R.id.item_description_full)).setText(item.desc);
+                    dialog.show();
+                }
+            });
+
             viewHolder.itemTime.setText(item.timeForDisplay());
             viewHolder.itemTime.setTextColor(convertView.getContext().getResources().getColor(item.dueDateColor()));
             Log.d("task_color", "" + item.dueDateColor());
             viewHolder.snoozeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "Speak!", Toast.LENGTH_SHORT).show();
                     new DateTimeListeningDialog(view.getContext(), new DateTimeListeningDialog.OnSubmitListener() {
                         @Override
                         public void onSubmit(long time) {
