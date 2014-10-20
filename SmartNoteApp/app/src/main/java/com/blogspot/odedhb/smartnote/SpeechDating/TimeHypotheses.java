@@ -14,9 +14,9 @@ public class TimeHypotheses {
 
         Long returnedTime = new Long(timeInMillis);
 
-        if (timeInMillis < System.currentTimeMillis()) {
+        while (returnedTime < System.currentTimeMillis()) {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(timeInMillis);
+            calendar.setTimeInMillis(returnedTime);
             calendar.add(Calendar.HOUR, 12);
             returnedTime = calendar.getTimeInMillis();
         }
