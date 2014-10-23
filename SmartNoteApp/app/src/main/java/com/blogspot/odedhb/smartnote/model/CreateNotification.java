@@ -55,7 +55,7 @@ public class CreateNotification extends Dictification {
 
     @Override
     int getIcon() {
-        return R.drawable.add_new_icon;
+        return R.drawable.ic_logo_monochrome;
     }
 
     @Override

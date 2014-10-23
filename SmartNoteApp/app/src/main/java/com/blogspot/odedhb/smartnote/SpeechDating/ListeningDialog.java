@@ -81,14 +81,14 @@ public class ListeningDialog extends Dialog {
 
 
         progressBarView = new View(context);
-        progressBarView.setBackgroundColor(Color.parseColor("#50ffffff"));
+        progressBarView.setBackgroundColor(context.getResources().getColor(R.color.progress_color));
         RelativeLayout.LayoutParams progressBarLayoutParams = new RelativeLayout.LayoutParams(
                 16, 128);
         speechAnimation.addView(progressBarView, progressBarLayoutParams);
 
 
         soundBarView = new View(context);
-        soundBarView.setBackgroundColor(Color.parseColor("#f8505b"));
+        soundBarView.setBackgroundColor(context.getResources().getColor(R.color.speech_volume_color));
         RelativeLayout.LayoutParams soundBarLayoutParams = new RelativeLayout.LayoutParams(
                 16, 128);
         speechAnimation.addView(soundBarView, soundBarLayoutParams);
@@ -174,9 +174,11 @@ public class ListeningDialog extends Dialog {
 
     public void onEndOfSpeech() {
         progress = 1;
+        soundBarView.setVisibility(View.GONE);
     }
 
     public void onBeginningOfSpeech() {
         progress = 0;
+        soundBarView.setVisibility(View.VISIBLE);
     }
 }

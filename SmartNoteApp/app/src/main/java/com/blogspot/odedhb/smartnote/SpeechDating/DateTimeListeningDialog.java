@@ -20,21 +20,21 @@ import java.util.List;
  * Created by oded on 10/11/14.
  */
 public class DateTimeListeningDialog extends ListeningDialog {
-    private final LinearLayout confirmationView;
+    private final LinearLayout snoozeLayout;
     private OnSubmitListener submitListener;
 
     public DateTimeListeningDialog(Context context, OnSubmitListener submitListener) {
         super(context);
         this.submitListener = submitListener;
-        confirmationView = (LinearLayout) ((LayoutInflater) context.getSystemService
+        snoozeLayout = (LinearLayout) ((LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.snooze_layout, null);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(confirmationView);
-        ((RelativeLayout) confirmationView.findViewById(R.id.animation_holder)).addView(speechAnimation);
+        setContentView(snoozeLayout);
+        ((RelativeLayout) snoozeLayout.findViewById(R.id.animation_holder)).addView(speechAnimation);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class DateTimeListeningDialog extends ListeningDialog {
 
         final Long time = selectedHypotheses.getTimeInMillis();
 
+        snoozeLayout.findViewById(R.id.confirmation_view).setVisibility(View.VISIBLE);
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time);
@@ -64,12 +65,12 @@ public class DateTimeListeningDialog extends ListeningDialog {
         SimpleDateFormat monthDay = new SimpleDateFormat("dd");
         String dayInMonth = monthDay.format(time);
 
-        ((TextView) confirmationView.findViewById(R.id.day_in_month)).setText(dayInMonth);
-        ((TextView) confirmationView.findViewById(R.id.month_short)).setText(monthName);
-        ((TextView) confirmationView.findViewById(R.id.relative_date)).setText(DateUtils.formatDateTime(App.getContext(), time,
+        ((TextView) snoozeLayout.findViewById(R.id.day_in_month)).setText(dayInMonth);
+        ((TextView) snoozeLayout.findViewById(R.id.month_short)).setText(monthName);
+        ((TextView) snoozeLayout.findViewById(R.id.relative_date)).setText(DateUtils.formatDateTime(App.getContext(), time,
                 DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_ALL));
 
-        confirmationView.findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
+        snoozeLayout.findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submitListener.onSubmit(time);
@@ -77,7 +78,7 @@ public class DateTimeListeningDialog extends ListeningDialog {
             }
         });
 
-//        setContentView(confirmationView);
+//        setContentView(snoozeLayout);
     }
 
     public interface OnSubmitListener {

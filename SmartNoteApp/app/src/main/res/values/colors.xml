@@ -12,5 +12,6 @@
 
 
     <color name="transparent_header_text">#80ffffff</color>
-    <color name="animation_color">#f8505b</color>
+    <color name="speech_volume_color">#f8505b</color>
+    <color name="progress_color">#999999</color>
 </resources>
