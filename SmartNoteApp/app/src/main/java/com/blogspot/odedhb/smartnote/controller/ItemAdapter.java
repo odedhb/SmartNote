@@ -1,6 +1,8 @@
 package com.blogspot.odedhb.smartnote.controller;
 
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.blogspot.odedhb.smartnote.App;
 import com.blogspot.odedhb.smartnote.MyActivity;
 import com.blogspot.odedhb.smartnote.R;
 import com.blogspot.odedhb.smartnote.SpeechDating.DateTimeListeningDialog;
@@ -99,6 +102,9 @@ public class ItemAdapter extends BaseAdapter {
                         public void onSubmit(long time) {
                             new Item(item.desc, time).save();
                             notifyDataSetChanged();
+                            NotificationManager notificationManager =
+                                    (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                            notificationManager.cancel(item.desc.hashCode());
                         }
                     }).show();
                 }
