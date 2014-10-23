@@ -1,5 +1,9 @@
 package com.blogspot.odedhb.smartnote.SpeechDating;
 
+import android.util.Log;
+
+import com.blogspot.odedhb.smartnote.model.Item;
+
 import java.util.Calendar;
 
 /**
@@ -13,6 +17,8 @@ public class TimeHypotheses {
     public Long getTimeInMillis() {
 
         Long returnedTime = new Long(timeInMillis);
+
+        Log.d("returnedTime", Item.fullTimeForDisplay(timeInMillis));
 
         while (returnedTime < System.currentTimeMillis()) {
             Calendar calendar = Calendar.getInstance();
@@ -42,6 +48,6 @@ public class TimeHypotheses {
 
     @Override
     public String toString() {
-        return getSpeech() + " : " + getTimeInMillis();
+        return getSpeech() + " : " + Item.fullTimeForDisplay(timeInMillis);
     }
 }

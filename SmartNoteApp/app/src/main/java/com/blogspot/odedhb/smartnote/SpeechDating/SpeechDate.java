@@ -2,6 +2,7 @@ package com.blogspot.odedhb.smartnote.SpeechDating;
 
 import android.util.Log;
 
+import com.blogspot.odedhb.smartnote.model.Item;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
@@ -53,9 +54,10 @@ public class SpeechDate {
 
             for (Date date : dates) {
                 if (date.getTime() == 0) continue;
-                TimeHypotheses timeHypotheses = new TimeHypotheses().setSpeech(voiceInput).setTimeInMillis(date.getTime());
+                TimeHypotheses timeHypotheses = new TimeHypotheses().setSpeech(when).setTimeInMillis(date.getTime());
                 timeHypothesis.add(timeHypotheses);
-                Log.d("time_debug : hypo: ", timeHypotheses.toString());
+                Log.d("time_debug : set: ", "voiceInput: " + voiceInput +
+                        " | when: " + when + " | time: " + Item.fullTimeForDisplay(date.getTime()));
             }
         }
     }
@@ -63,18 +65,19 @@ public class SpeechDate {
 
     private static String normalize(String voiceInput) {
         return voiceInput
-                .replace("(?i)doors", "2 hours")
-                .replace("(?i)a_m", "a.m.")
-                .replace("(?i)noon", "tomorrow noon")
-                .replace("(?i)maroon", "tomorrow noon")
-                .replace("(?i)nowhere and a half", "90 minutes")
-                .replace("(?i)nowhere and a half", "90 minutes")
-                .replace("(?i)an hour and a half", "90 minutes")
-                .replace("(?i)free horse", "3 hours")
-                .replace("(?i)o clock", "o'clock")
-                .replace("(?i)o-clock", "o'clock")
-                .replace("(?i)today's", "2 days")
-                .replace("(?i)elephant", "eleven")
+                .replace("doors", "2 hours")
+                .replace("a_m", "a.m.")
+                .replace("p_m", "p.m.")
+                .replace("noon", "tomorrow noon")
+                .replace("maroon", "tomorrow noon")
+                .replace("nowhere and a half", "90 minutes")
+                .replace("nowhere and a half", "90 minutes")
+                .replace("an hour and a half", "90 minutes")
+                .replace("free horse", "3 hours")
+                .replace("o clock", "o'clock")
+                .replace("o-clock", "o'clock")
+                .replace("today's", "2 days")
+                .replace("elephant", "11")
                 ;
     }
 
