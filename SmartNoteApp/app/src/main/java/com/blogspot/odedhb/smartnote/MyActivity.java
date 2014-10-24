@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.blogspot.odedhb.smartnote.SpeechDating.SpeechDate;
+import com.blogspot.odedhb.smartnote.SpeechDating.TimeHypotheses;
 import com.blogspot.odedhb.smartnote.controller.ItemAdapter;
 import com.blogspot.odedhb.smartnote.model.Item;
 
@@ -64,7 +65,14 @@ public class MyActivity extends ActionBarActivity {
                 return false;
             }
 
-            Long time = new SpeechDate(text).getSelectedHypotheses().getTimeInMillis();
+            SpeechDate speechDate = new SpeechDate(text);
+            TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
+            Long time;
+            if (selectedHypotheses == null) {
+                time = System.currentTimeMillis();
+            } else {
+                time = selectedHypotheses.getTimeInMillis();
+            }
 
             new Item(text, time).save();
             InputMethodManager imm = (InputMethodManager) getSystemService(

@@ -18,6 +18,8 @@ public class TimeHypotheses {
 
         Long returnedTime = new Long(timeInMillis);
 
+        if (returnedTime == null) return null;
+
         Log.d("returnedTime", Item.fullTimeForDisplay(timeInMillis));
 
         while (returnedTime < System.currentTimeMillis()) {
