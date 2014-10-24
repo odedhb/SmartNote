@@ -62,7 +62,10 @@ public class NotificationService extends IntentService {
     }
 
     void create(CharSequence speech) {
-        new Item(speech, System.currentTimeMillis()).save();
+
+        Long time = new SpeechDate(speech).getSelectedHypotheses().getTimeInMillis();
+
+        new Item(speech, time).save();
     }
 
     void snooze(CharSequence speech, String originalItemDesc) {

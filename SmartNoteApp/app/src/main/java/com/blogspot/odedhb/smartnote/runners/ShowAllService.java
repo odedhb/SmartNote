@@ -17,7 +17,7 @@ public class ShowAllService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Item.popAllOverDue();
+//        Item.popAllOverDue();
         Item.popAll();
     }
 }

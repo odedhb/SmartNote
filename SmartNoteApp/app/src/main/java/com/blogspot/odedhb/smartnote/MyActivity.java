@@ -1,8 +1,8 @@
 package com.blogspot.odedhb.smartnote;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -11,11 +11,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blogspot.odedhb.smartnote.SpeechDating.SpeechDate;
 import com.blogspot.odedhb.smartnote.controller.ItemAdapter;
 import com.blogspot.odedhb.smartnote.model.Item;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends ActionBarActivity {
 
 
     private ListView listView;
@@ -27,8 +28,6 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
 
         App.periodicCheckForOverdueItems();
-
-        getActionBar().hide();
 
         listView = (ListView) findViewById(R.id.item_list);
         listView.setAdapter(new ItemAdapter(this));
@@ -64,7 +63,10 @@ public class MyActivity extends Activity {
             if (text == null || text.length() < 1) {
                 return false;
             }
-            new Item(text, System.currentTimeMillis()).save();
+
+            Long time = new SpeechDate(text).getSelectedHypotheses().getTimeInMillis();
+
+            new Item(text, time).save();
             InputMethodManager imm = (InputMethodManager) getSystemService(
                     INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
