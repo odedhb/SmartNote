@@ -10,6 +10,7 @@ import android.util.Log;
 
 import snooze.ninja.App;
 import snooze.ninja.SpeechDating.SpeechDate;
+import snooze.ninja.SpeechDating.TimeHypotheses;
 import snooze.ninja.model.CreateNotification;
 import snooze.ninja.model.Dictification;
 import snooze.ninja.model.Item;
@@ -63,9 +64,28 @@ public class NotificationService extends IntentService {
 
     void create(CharSequence speech) {
 
-        Long time = new SpeechDate(speech).getSelectedHypotheses().getTimeInMillis();
+        Log.d("testing-" + this, "create function called");
 
-        new Item(speech, time).save();
+        TimeHypotheses timeHypotheses = new SpeechDate(speech).getSelectedHypotheses();
+
+        if(timeHypotheses==null){
+            Log.d("testing-" + this, "time is null");
+            new Item(speech).save();
+            Log.d("testing-" + this, "new timeless Item finished");
+            return;
+        }
+
+        Long time = timeHypotheses.getTimeInMillis();
+
+        Log.d("testing-" + this, "speechDate result is :" + time.toString());
+
+        if (time != null) {
+            Log.d("testing-" + this, "time is not null");
+            new Item(speech, time).save();
+            Log.d("testing-" + this, "new Item finished");
+        } else {
+            new Item(speech).save();
+        }
     }
 
     void snooze(CharSequence speech, String originalItemDesc) {

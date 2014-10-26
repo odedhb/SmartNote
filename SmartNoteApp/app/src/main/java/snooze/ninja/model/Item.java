@@ -37,6 +37,9 @@ public class Item {
     public Item(String desc) {
         this.desc = desc;
     }
+    public Item(CharSequence desc) {
+        this.desc = desc.toString();
+    }
 
     public Item(CharSequence desc, long time) {
         this.desc = desc.toString();
