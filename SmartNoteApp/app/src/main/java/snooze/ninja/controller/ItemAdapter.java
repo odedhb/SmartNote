@@ -1,8 +1,6 @@
 package snooze.ninja.controller;
 
 import android.app.Dialog;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import snooze.ninja.App;
 import snooze.ninja.MyActivity;
 import snooze.ninja.R;
-import snooze.ninja.SpeechDating.DateTimeListeningDialog;
 import snooze.ninja.model.Item;
 
 /**
@@ -63,7 +59,8 @@ public class ItemAdapter extends BaseAdapter {
             viewHolder.itemDescription = (TextView) convertView.findViewById(R.id.item_description);
             viewHolder.itemTime = (TextView) convertView.findViewById(R.id.item_time);
             viewHolder.checkBox = (ImageButton) convertView.findViewById(R.id.item_done);
-            viewHolder.snoozeButton = convertView.findViewById(R.id.snooze_item);
+            viewHolder.dateButtonSet = convertView.findViewById(R.id.date_button_set);
+            viewHolder.dateButtonNew = convertView.findViewById(R.id.date_button_new);
 
             // store the holder with the view.
             convertView.setTag(viewHolder);
@@ -94,22 +91,19 @@ public class ItemAdapter extends BaseAdapter {
             viewHolder.itemTime.setText(item.timeForDisplay());
             viewHolder.itemTime.setTextColor(convertView.getContext().getResources().getColor(item.dueDateColor()));
             Log.d("task_color", "" + item.dueDateColor());
-            viewHolder.snoozeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new DateTimeListeningDialog(view.getContext(), new DateTimeListeningDialog.OnSubmitListener() {
-                        @Override
-                        public void onSubmit(long time) {
-                            new Item(item.desc, time).save();
-                            notifyDataSetChanged();
-                            NotificationManager notificationManager =
-                                    (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                            notificationManager.cancel(item.desc.hashCode());
-                        }
-                    }).show();
-                }
-            });
-//            viewHolder.itemDescription.setTag(item.);
+            SetTime setTimeClickListener = new SetTime(item, this);
+            viewHolder.dateButtonSet.setOnClickListener(setTimeClickListener);
+            viewHolder.dateButtonNew.setOnClickListener(setTimeClickListener);
+
+
+            if (item.isNew()) {
+                viewHolder.dateButtonSet.setVisibility(View.GONE);
+                viewHolder.dateButtonNew.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.dateButtonSet.setVisibility(View.VISIBLE);
+                viewHolder.dateButtonNew.setVisibility(View.GONE);
+            }
+
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -129,6 +123,7 @@ public class ItemAdapter extends BaseAdapter {
         TextView itemDescription;
         TextView itemTime;
         ImageButton checkBox;
-        View snoozeButton;
+        View dateButtonSet;
+        View dateButtonNew;
     }
 }

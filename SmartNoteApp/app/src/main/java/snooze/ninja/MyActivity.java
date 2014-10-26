@@ -69,12 +69,13 @@ public class MyActivity extends ActionBarActivity {
             TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
             Long time;
             if (selectedHypotheses == null) {
-                time = System.currentTimeMillis();
+                new Item(text).save();
             } else {
                 time = selectedHypotheses.getTimeInMillis();
+                new Item(text, time).save();
             }
 
-            new Item(text, time).save();
+
             InputMethodManager imm = (InputMethodManager) getSystemService(
                     INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);

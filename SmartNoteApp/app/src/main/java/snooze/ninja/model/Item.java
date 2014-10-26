@@ -5,15 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 
-import snooze.ninja.App;
-import snooze.ninja.R;
-
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import snooze.ninja.App;
+import snooze.ninja.R;
 
 /**
  * Created by oded on 9/21/14.
@@ -33,6 +32,10 @@ public class Item {
     public Item(String desc, long time) {
         this.desc = desc;
         this.time = time;
+    }
+
+    public Item(String desc) {
+        this.desc = desc;
     }
 
     public Item(CharSequence desc, long time) {
@@ -145,6 +148,13 @@ public class Item {
         for (Item item : Item.getAll()) {
             new SnoozeNotification(item.desc).show();
         }
+    }
+
+    public boolean isNew() {
+        if (time == 0) {
+            return true;
+        }
+        return false;
     }
 
     private static class ItemComparator implements java.util.Comparator<Item> {
