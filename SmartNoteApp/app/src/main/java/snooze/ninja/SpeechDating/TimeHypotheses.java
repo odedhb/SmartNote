@@ -2,9 +2,11 @@ package snooze.ninja.SpeechDating;
 
 import android.util.Log;
 
-import snooze.ninja.model.Item;
-
 import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import snooze.ninja.model.Item;
 
 /**
  * Created by oded on 10/19/14.
@@ -16,20 +18,47 @@ public class TimeHypotheses {
 
     public Long getTimeInMillis() {
 
-        Long returnedTime = new Long(timeInMillis);
-
-        if (returnedTime == null) return null;
+        if (timeInMillis == null) return null;
 
         Log.d("returnedTime", Item.fullTimeForDisplay(timeInMillis));
 
-        while (returnedTime < System.currentTimeMillis()) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(returnedTime);
-            calendar.add(Calendar.HOUR, 12);
-            returnedTime = calendar.getTimeInMillis();
+
+        Long returnedTime = new Long(timeInMillis);
+        if (timeInMillis < System.currentTimeMillis()) {
+            returnedTime = backToTheFuture();
         }
 
 
+        return returnedTime;
+    }
+
+    private Long backToTheFuture() {
+        Long returnedTime;
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTimeInMillis(timeInMillis);
+
+
+        LinkedHashMap<Integer, Integer> timeJumps = new LinkedHashMap<Integer, Integer>();
+        timeJumps.put(Calendar.HOUR, 12);
+        timeJumps.put(Calendar.HOUR, 24);
+        timeJumps.put(Calendar.WEEK_OF_YEAR, 1);
+        timeJumps.put(Calendar.MONTH, 1);
+        timeJumps.put(Calendar.YEAR, 1);
+
+
+        for (Map.Entry<Integer, Integer> jump : timeJumps.entrySet()) {
+
+            if (calendar.getTimeInMillis() > System.currentTimeMillis()) {
+                break;
+            }
+
+            calendar.setTimeInMillis(timeInMillis);
+            calendar.add(jump.getKey(), jump.getValue());
+        }
+
+
+        returnedTime = calendar.getTimeInMillis();
         return returnedTime;
     }
 

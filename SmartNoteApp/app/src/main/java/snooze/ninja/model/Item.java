@@ -140,9 +140,17 @@ public class Item {
     }
 
     public static String fullTimeForDisplay(long timeInMillis) {
-        String relative = DateUtils.getRelativeTimeSpanString(timeInMillis, System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL).toString();
+        String relative = DateUtils.getRelativeTimeSpanString(
+                timeInMillis,
+                System.currentTimeMillis(), 0L,
+                DateUtils.FORMAT_ABBREV_ALL).toString();
+
         String exact = DateUtils.formatDateTime(App.getContext(), timeInMillis,
-                DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+                DateUtils.FORMAT_SHOW_TIME
+                        | DateUtils.FORMAT_SHOW_WEEKDAY
+                        | DateUtils.FORMAT_SHOW_YEAR
+                        | DateUtils.FORMAT_SHOW_DATE
+                        | DateUtils.FORMAT_ABBREV_ALL);
         return exact + "\n" + relative;
     }
 

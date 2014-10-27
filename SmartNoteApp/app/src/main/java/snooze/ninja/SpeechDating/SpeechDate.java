@@ -2,13 +2,14 @@ package snooze.ninja.SpeechDating;
 
 import android.util.Log;
 
-import snooze.ninja.model.Item;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import snooze.ninja.model.Item;
 
 /**
  * Created by oded on 10/2/14.
@@ -55,6 +56,7 @@ public class SpeechDate {
             for (Date date : dates) {
                 if (date.getTime() == 0) continue;
                 TimeHypotheses timeHypotheses = new TimeHypotheses().setSpeech(when).setTimeInMillis(date.getTime());
+
                 timeHypothesis.add(timeHypotheses);
                 Log.d("time_debug : set: ", "voiceInput: " + voiceInput +
                         " | when: " + when + " | time: " + Item.fullTimeForDisplay(date.getTime()));
@@ -68,7 +70,6 @@ public class SpeechDate {
                 .replace("doors", "2 hours")
                 .replace("a_m", "a.m.")
                 .replace("p_m", "p.m.")
-                .replace("noon", "tomorrow noon")
                 .replace("maroon", "tomorrow noon")
                 .replace("nowhere and a half", "90 minutes")
                 .replace("nowhere and a half", "90 minutes")
@@ -82,9 +83,14 @@ public class SpeechDate {
     }
 
     public TimeHypotheses getSelectedHypotheses() {
+        Log.d("timeHypo", " count:"+timeHypothesis.size());
 
         if (timeHypothesis.size() < 1) {
             return null;
+        }
+
+        for (TimeHypotheses timeHypotheses : timeHypothesis) {
+            Log.d("timeHypo", timeHypotheses.toString());
         }
 
         return timeHypothesis.get(0);
