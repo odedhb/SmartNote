@@ -37,6 +37,7 @@ public class Item {
     public Item(String desc) {
         this.desc = desc;
     }
+
     public Item(CharSequence desc) {
         this.desc = desc.toString();
     }
@@ -117,7 +118,7 @@ public class Item {
                         DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString()
                         + ", " +
                         DateUtils.formatDateTime(App.getContext(), time,
-                                DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_TIME);
+                                DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_CAP_AMPM);
 
 
 //        return exact + "\n" + relative;
