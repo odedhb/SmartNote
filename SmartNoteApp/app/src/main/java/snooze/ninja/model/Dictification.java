@@ -7,11 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.RemoteInput;
+import android.util.Log;
+
+import java.util.Random;
 
 import snooze.ninja.App;
 import snooze.ninja.runners.NotificationService;
-
-import java.util.Random;
 
 /**
  * Created by oded on 9/19/14.
@@ -87,7 +88,11 @@ public abstract class Dictification {
 
     public void show() {
 
+        Log.d("showingNotifications", App.instance.showingNotifications.toString());
+
         if (App.instance.showingNotifications.contains(notificationTitle)) return;
+
+        Log.d("showingNotifications","does not contain");
 
         NotificationManager notificationManager =
                 (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
