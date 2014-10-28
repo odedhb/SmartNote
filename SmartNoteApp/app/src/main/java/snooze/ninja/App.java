@@ -41,8 +41,8 @@ public class App extends Application {
 
         alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
 //                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
-                DateUtils.SECOND_IN_MILLIS * 30,
-                DateUtils.SECOND_IN_MILLIS * 30, pendingIntent);
+                DateUtils.SECOND_IN_MILLIS * 3,
+                DateUtils.SECOND_IN_MILLIS * 3, pendingIntent);
     }
 
     public Set<String> showingNotifications;
