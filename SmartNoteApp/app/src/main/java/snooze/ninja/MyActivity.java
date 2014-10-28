@@ -1,14 +1,13 @@
 package snooze.ninja;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import snooze.ninja.SpeechDating.SpeechDate;
@@ -20,8 +19,10 @@ import snooze.ninja.model.Item;
 public class MyActivity extends ActionBarActivity {
 
 
-    private ListView listView;
+    private RecyclerView mRecyclerView;
     private EditText createItem;
+    private LinearLayoutManager mLayoutManager;
+    private ItemAdapter mItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,14 @@ public class MyActivity extends ActionBarActivity {
 
         App.periodicCheckForOverdueItems();
 
-        listView = (ListView) findViewById(R.id.item_list);
-        listView.setAdapter(new ItemAdapter(this));
+        mRecyclerView = (RecyclerView) findViewById(R.id.item_list);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mItemAdapter = new ItemAdapter(this);
+        mRecyclerView.setAdapter(mItemAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
 
         createItem = (EditText) findViewById(R.id.create_edit_text);
         createItem.setOnEditorActionListener(new EditorActionDoneListener());
@@ -43,15 +50,6 @@ public class MyActivity extends ActionBarActivity {
         super.onResume();
     }
 
-    public void editItem(View view) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setView(getLayoutInflater().inflate(R.layout.task_options, null));
-
-        builder.show();
-
-    }
 
     class EditorActionDoneListener implements TextView.OnEditorActionListener {
 
@@ -68,18 +66,28 @@ public class MyActivity extends ActionBarActivity {
             SpeechDate speechDate = new SpeechDate(text);
             TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
             Long time;
+            Item item;
             if (selectedHypotheses == null) {
-                new Item(text).save();
+                item = new Item(text);
             } else {
                 time = selectedHypotheses.getTimeInMillis();
-                new Item(text, time).save();
+                item = new Item(text, time);
             }
 
+            item.save();
+            int position = item.getPositionInList();
 
-            InputMethodManager imm = (InputMethodManager) getSystemService(
+            if (position == 0) {
+                mItemAdapter.notifyDataSetChanged();
+            } else {
+                mItemAdapter.notifyItemInserted(position);
+            }
+
+            /*InputMethodManager imm = (InputMethodManager) getSystemService(
                     INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);*/
             textView.setText("");
+
             return true;
         }
     }

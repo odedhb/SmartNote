@@ -1,13 +1,14 @@
 package snooze.ninja.controller;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,112 +19,92 @@ import snooze.ninja.model.Item;
 /**
  * Created by oded on 10/11/14.
  */
-public class ItemAdapter extends BaseAdapter {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolderItem> {
     private MyActivity myActivity;
-    private LayoutInflater inflater;
 
     public ItemAdapter(MyActivity myActivity) {
         this.myActivity = myActivity;
     }
 
     @Override
-    public int getCount() {
-        return Item.getAll().size();
+    public ViewHolderItem onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        return new ViewHolderItem(v);
     }
 
     @Override
-    public Item getItem(int i) {
-        return Item.getAll().get(i);
+    public void onBindViewHolder(final ViewHolderItem viewHolderItem, int i) {
+
+        final Item item = Item.getAll().get(i);
+
+        viewHolderItem.itemDescription.setText(item.desc);
+        viewHolderItem.itemDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(myActivity);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setContentView(LayoutInflater.from(viewHolderItem.itemDescription.getContext())
+                        .inflate(R.layout.preview_layout, null));
+                ((TextView) dialog.findViewById(R.id.item_description_full)).setText(item.desc);
+                dialog.show();
+            }
+        });
+
+        viewHolderItem.itemTime.setText(item.timeForDisplay());
+        viewHolderItem.itemTime.setTextColor(viewHolderItem.itemTime.getContext().getResources().getColor(item.dueDateColor()));
+        Log.d("task_color", "" + item.dueDateColor());
+        SetTime setTimeClickListener = new SetTime(item, this);
+        viewHolderItem.dateButtonSet.setOnClickListener(setTimeClickListener);
+        viewHolderItem.dateButtonNew.setOnClickListener(setTimeClickListener);
+
+
+        if (item.isNew()) {
+            viewHolderItem.dateButtonSet.setVisibility(View.GONE);
+            viewHolderItem.dateButtonNew.setVisibility(View.VISIBLE);
+        } else {
+            viewHolderItem.dateButtonSet.setVisibility(View.VISIBLE);
+            viewHolderItem.dateButtonNew.setVisibility(View.GONE);
+        }
+
+        viewHolderItem.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notifyItemRemoved(item.getPositionInList());
+                Item.delete(item.desc);
+            }
+        });
+
+        viewHolderItem.itemView.setTag(item);
     }
+
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return Item.getAll().get(i).desc.hashCode();
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
-        final Item item = getItem(position);
-
-        ViewHolderItem viewHolder;
-
-        if (convertView == null) {
-
-            // inflate the layout
-            inflater = (myActivity).getLayoutInflater();
-            convertView = inflater.inflate(R.layout.item, parent, false);
-
-            // well set up the ViewHolder
-            viewHolder = new ViewHolderItem();
-            viewHolder.itemDescription = (TextView) convertView.findViewById(R.id.item_description);
-            viewHolder.itemTime = (TextView) convertView.findViewById(R.id.item_time);
-            viewHolder.checkBox = (ImageButton) convertView.findViewById(R.id.item_done);
-            viewHolder.dateButtonSet = convertView.findViewById(R.id.date_button_set);
-            viewHolder.dateButtonNew = convertView.findViewById(R.id.date_button_new);
-
-            // store the holder with the view.
-            convertView.setTag(viewHolder);
-
-        } else {
-            // we've just avoided calling findViewById() on resource every time
-            // just use the viewHolder
-            viewHolder = (ViewHolderItem) convertView.getTag();
-        }
-
-        // assign values if the object is not null
-        if (item != null) {
-            // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
-            viewHolder.itemDescription.setText(item.desc);
-            viewHolder.itemDescription.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Dialog dialog = new Dialog(myActivity);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    dialog.setCanceledOnTouchOutside(true);
-                    dialog.setContentView(inflater.inflate(R.layout.preview_layout, null));
-                    ((TextView) dialog.findViewById(R.id.item_description_full)).setText(item.desc);
-                    dialog.show();
-                }
-            });
-
-            viewHolder.itemTime.setText(item.timeForDisplay());
-            viewHolder.itemTime.setTextColor(convertView.getContext().getResources().getColor(item.dueDateColor()));
-            Log.d("task_color", "" + item.dueDateColor());
-            SetTime setTimeClickListener = new SetTime(item, this);
-            viewHolder.dateButtonSet.setOnClickListener(setTimeClickListener);
-            viewHolder.dateButtonNew.setOnClickListener(setTimeClickListener);
-
-
-            if (item.isNew()) {
-                viewHolder.dateButtonSet.setVisibility(View.GONE);
-                viewHolder.dateButtonNew.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.dateButtonSet.setVisibility(View.VISIBLE);
-                viewHolder.dateButtonNew.setVisibility(View.GONE);
-            }
-
-            viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Item.delete(item.desc);
-                    notifyDataSetChanged();
-                }
-            });
-
-        }
-
-        return convertView;
-
+    public int getItemCount() {
+        return Item.getAll().size();
     }
 
 
-    static class ViewHolderItem {
-        TextView itemDescription;
-        TextView itemTime;
-        ImageButton checkBox;
-        View dateButtonSet;
-        View dateButtonNew;
+    public static class ViewHolderItem extends RecyclerView.ViewHolder {
+        public TextView itemDescription;
+        public TextView itemTime;
+        public ImageButton checkBox;
+        public View dateButtonSet;
+        public View dateButtonNew;
+
+        public ViewHolderItem(View itemView) {
+            super(itemView);
+            itemDescription = (TextView) itemView.findViewById(R.id.item_description);
+            itemTime = (TextView) itemView.findViewById(R.id.item_time);
+            checkBox = (ImageButton) itemView.findViewById(R.id.item_done);
+            dateButtonSet = itemView.findViewById(R.id.date_button_set);
+            dateButtonNew = itemView.findViewById(R.id.date_button_new);
+        }
     }
 }

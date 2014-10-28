@@ -47,8 +47,9 @@ public class Item {
         this.time = time;
     }
 
-    public void save() {
+    public Item save() {
         prefs().edit().putLong(desc, time).commit();
+        return this;
     }
 
     public static List<Item> getAll() {
@@ -169,10 +170,30 @@ public class Item {
         return false;
     }
 
+    public int getPositionInList() {
+        List<Item> itemList = getAll();
+
+        for (Item item : itemList) {
+
+            if (item.desc.equals(desc)) {
+                return itemList.indexOf(item);
+            }
+
+        }
+
+        return -1;
+    }
+
     private static class ItemComparator implements java.util.Comparator<Item> {
         @Override
         public int compare(Item i, Item i2) {
-            return ((Long) i.time).compareTo(i2.time);
+            int timeComparison = ((Long) i.time).compareTo(i2.time);
+
+            if (timeComparison != 0) {
+                return timeComparison;
+            }
+
+            return i.desc.compareTo(i2.desc);
         }
     }
 
