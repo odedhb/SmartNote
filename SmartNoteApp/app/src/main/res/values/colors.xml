@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="background_color" type="color">#70bcc4</item>
-    <item name="header" type="color">#212432</item>
+    <item name="background_color" type="color">#000000</item>
+    <item name="header" type="color">#4BBB6D</item>
     <item name="header_text" type="color">#FFF</item>
     <item name="task_background" type="color">#f1f1f1</item>
     <item name="overdue_text" type="color">#E1394E</item>
     <item name="due_today_text" type="color">#F5A623</item>
     <item name="due_tomorrow_text" type="color">#666666</item>
-    <item name="button_color" type="color">#e6e6e6</item>
+    <item name="button_color" type="color">#D0D0CF</item>
 
 
     <color name="transparent_header_text">#80ffffff</color>
