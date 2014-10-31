@@ -83,7 +83,7 @@ public class SnoozeNotification extends Dictification {
     protected NotificationCompat.WearableExtender addStuffToExtender(NotificationCompat.WearableExtender wearableExtender) {
 
         NotificationCompat.Action action =
-                new NotificationCompat.Action.Builder(R.drawable.delete_icon, "Delete", deletePendingIntent()).build();
+                new NotificationCompat.Action.Builder(R.drawable.delete_icon_hi_res, "Delete", deletePendingIntent()).build();
         return wearableExtender.addAction(action);
     }
 
