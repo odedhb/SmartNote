@@ -15,5 +15,6 @@
     <string name="speak">Speak! What time?</string>
     <string name="confirm">Confirm</string>
     <string name="time">TIME</string>
+    <string name="snooze">Snooze!</string>
 
 </resources>
