@@ -8,8 +8,8 @@ android {
         applicationId "snooze.ninja"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 1
-        versionName "Very Early Beta"
+        versionCode 2
+        versionName "Still Early Beta"
     }
     buildTypes {
         release {
