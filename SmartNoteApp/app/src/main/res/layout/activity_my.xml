@@ -22,6 +22,7 @@
             android:textColorHint="@color/transparent_header_text"
             android:imeOptions="actionDone"
             android:singleLine="true"
+            android:inputType="textCapSentences"
             android:id="@+id/create_edit_text"
             android:layout_height="wrap_content"
             android:background="@color/header"
