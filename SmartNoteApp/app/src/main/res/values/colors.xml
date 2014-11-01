@@ -9,6 +9,7 @@
     <item name="due_today_text" type="color">#BE7700</item>
     <item name="due_tomorrow_text" type="color">#666666</item>
     <item name="button_color" type="color">#D0D0CF</item>
+    <item name="enter_item_color" type="color">#D1D1D1</item>
 
 
     <color name="transparent_header_text">#80ffffff</color>
