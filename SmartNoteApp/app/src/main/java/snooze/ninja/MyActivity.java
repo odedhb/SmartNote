@@ -50,6 +50,7 @@ public class MyActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         App.instance.showCreateNotification();
+        mItemAdapter.notifyDataSetChanged();
     }
 
 

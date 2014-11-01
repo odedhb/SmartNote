@@ -17,5 +17,6 @@
     <string name="time">TIME</string>
     <string name="snooze">Snooze</string>
     <string name="new_item_notification_message">Time not set, snooze by voice</string>
+    <string name="create_notification_title">SnoozeNinja</string>
 
 </resources>

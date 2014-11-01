@@ -14,7 +14,7 @@ import snooze.ninja.runners.ShowAllService;
  */
 public class CreateNotification extends Dictification {
 
-    public static final String CREATE_TITLE = "SmartNote";
+    public static final String CREATE_TITLE = App.getContext().getResources().getString(R.string.create_notification_title);
 
     public CreateNotification() {
         super(getTitle(), "Create", new String[]{"buy apples", "call Steve"});
@@ -22,7 +22,7 @@ public class CreateNotification extends Dictification {
     }
 
     static String getTitle() {
-        return CREATE_TITLE + " : " + Item.getAllOverDue().size() + " / " + Item.getAll().size();
+        return CREATE_TITLE + ": " + Item.getAllOverDue().size() + "/" + Item.getAll().size();
     }
 
     @Override
