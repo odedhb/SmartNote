@@ -13,6 +13,7 @@ import android.widget.TextView;
 import snooze.ninja.SpeechDating.SpeechDate;
 import snooze.ninja.SpeechDating.TimeHypotheses;
 import snooze.ninja.controller.ItemAdapter;
+import snooze.ninja.model.CreateNotification;
 import snooze.ninja.model.Item;
 
 
@@ -48,6 +49,7 @@ public class MyActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        App.instance.showCreateNotification();
     }
 
 

@@ -4,9 +4,9 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import snooze.ninja.App;
 import snooze.ninja.R;
@@ -82,22 +82,14 @@ public class SnoozeNotification extends Dictification {
     @Override
     String getContentText() {
 
-        List<Item> items = Item.getAll();
+        Item item = Item.getByName(notificationTitle);
 
-        for (Item item : items) {
-            if (!item.desc.equals(notificationTitle)) {
-                continue;
-            }
-
-            if (item.isNew()) {
-                return App.getContext().getResources().getString(R.string.new_item_notification_message);
-            } else {
-                return item.timeForDisplay();
-            }
+        if (item.isNew()) {
+            return App.getContext().getResources().getString(R.string.new_item_notification_message);
         }
-
-        return null;
+        return item.timeForDisplay();
     }
+
 
     @Override
     int getIcon() {
@@ -154,4 +146,23 @@ public class SnoozeNotification extends Dictification {
         return "SNOOZE_GROUP";
     }
 
+
+    @Override
+    public void show() {
+
+        Item item = Item.getByName(notificationTitle);
+
+        Log.d("notify check:", "id: " + getId()
+                + " | wasNotified: " + item
+                .wasNotified());
+
+
+        if (item.wasNotified()) {
+            return;
+        }
+
+        super.show();
+
+        item.setNotified();
+    }
 }

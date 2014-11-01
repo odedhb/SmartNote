@@ -18,6 +18,7 @@ public class CreateNotification extends Dictification {
 
     public CreateNotification() {
         super(getTitle(), "Create", new String[]{"buy apples", "call Steve"});
+//        notification.flags |= Notification.FLAG_ONGOING_EVENT;
     }
 
     static String getTitle() {
@@ -26,6 +27,7 @@ public class CreateNotification extends Dictification {
 
     @Override
     protected NotificationCompat.Builder addStuffToNotification(NotificationCompat.Builder notificationBuilder) {
+
         return notificationBuilder;
     }
 
@@ -39,13 +41,13 @@ public class CreateNotification extends Dictification {
     }
 
 
+    static Intent showAllIntent() {
+        return new Intent(App.getContext(), ShowAllService.class);
+    }
+
     PendingIntent showAllPendingIntent() {
-
-        Intent intent = new Intent(App.getContext(), ShowAllService.class);
-//        intent.putExtra(SnoozeNotification.ORIGINAL_ITEM_DESC, notificationTitle);
-
-        return PendingIntent.getService(App.getContext(), 1982, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getService(App.getContext(), SHOW_ALL_PENDING_INTENT_ID, showAllIntent(),
+                PendingIntent.FLAG_ONE_SHOT);
     }
 
     @Override
@@ -73,4 +75,12 @@ public class CreateNotification extends Dictification {
         return null;
     }
 
+
+/*    public static boolean isCreateNotificationVisible() {
+        PendingIntent test = PendingIntent.getActivity(App.getContext(), SHOW_ALL_PENDING_INTENT_ID,
+                showAllIntent(), PendingIntent.FLAG_NO_CREATE);
+        return test != null;
+    }*/
+
+    static int SHOW_ALL_PENDING_INTENT_ID = 1982;
 }

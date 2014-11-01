@@ -58,7 +58,7 @@ public class NotificationService extends IntentService {
             Log.d("testing-" + this, "snoozed");
         }
 
-        new CreateNotification().show();
+        App.instance.showCreateNotification();
         Log.d("testing-" + this, "refreshing CreateNotification");
     }
 
@@ -68,7 +68,7 @@ public class NotificationService extends IntentService {
 
         TimeHypotheses timeHypotheses = new SpeechDate(speech).getSelectedHypotheses();
 
-        if(timeHypotheses==null){
+        if (timeHypotheses == null) {
             Log.d("testing-" + this, "time is null");
             new Item(speech).save();
             Log.d("testing-" + this, "new timeless Item finished");

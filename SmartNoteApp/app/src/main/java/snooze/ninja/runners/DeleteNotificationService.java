@@ -3,6 +3,7 @@ package snooze.ninja.runners;
 import android.app.IntentService;
 import android.content.Intent;
 
+import snooze.ninja.App;
 import snooze.ninja.model.CreateNotification;
 import snooze.ninja.model.Item;
 import snooze.ninja.model.SnoozeNotification;
@@ -29,7 +30,7 @@ public class DeleteNotificationService extends IntentService {
 
         Item.delete(originalItemDesc);
 
-        new CreateNotification().show();
+        App.instance.showCreateNotification();
 
     }
 

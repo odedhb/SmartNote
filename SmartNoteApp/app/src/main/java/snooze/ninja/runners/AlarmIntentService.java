@@ -2,10 +2,8 @@ package snooze.ninja.runners;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.util.Log;
 
 import snooze.ninja.App;
-import snooze.ninja.model.CreateNotification;
 import snooze.ninja.model.Item;
 
 /**
@@ -21,7 +19,8 @@ public class AlarmIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        new CreateNotification().show();
+        App.instance.showCreateNotification();
+
         Item.popAllOverDue();
     }
 }

@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-import snooze.ninja.App;
+import snooze.ninja.model.Item;
 import snooze.ninja.model.SnoozeNotification;
 
 /**
@@ -21,5 +21,6 @@ public class DismissSnoozeNotificationService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         String originalItemDesc = intent.getStringExtra(SnoozeNotification.ORIGINAL_ITEM_DESC);
         Log.d("testing-", "dismissed " + originalItemDesc);
+        Item.getByName(originalItemDesc).setDismissed();
     }
 }

@@ -73,9 +73,7 @@ public abstract class Dictification {
         notificationBuilder.build();
 
         notification = notificationBuilder.build();
-        notification.priority = getPriority();
-//        notification.flags |= Notification.FLAG_NO_CLEAR;
-        notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
+
     }
 
     abstract String getGroupName();
@@ -88,10 +86,18 @@ public abstract class Dictification {
 
     public void show() {
 
+        notification.priority = getPriority();
+//        notification.flags |= Notification.FLAG_NO_CLEAR;
+        notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
+
+        Log.d("notifying:", "id: " + getId()
+                + " | flags: " + notification.flags
+                + " | prio: " + notification.priority
+                + " | tostring: " + notification.toString());
+
         NotificationManager notificationManager =
                 (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(getId(), notification);
-
     }
 
     abstract String getContentText();

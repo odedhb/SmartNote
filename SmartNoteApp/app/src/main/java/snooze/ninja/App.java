@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.text.format.DateUtils;
 
+import snooze.ninja.model.CreateNotification;
+import snooze.ninja.model.Item;
 import snooze.ninja.runners.AlarmIntentService;
 
 /**
@@ -16,6 +18,7 @@ public class App extends Application {
 
 
     public static App instance;
+    private CreateNotification createNotification;
 
     public App() {
         instance = this;
@@ -27,6 +30,9 @@ public class App extends Application {
 
 
     public static void periodicCheckForOverdueItems() {
+
+        Item.resetAllItemNotifications();
+
         Intent intent = new Intent(App.getContext(), AlarmIntentService.class);
 
         PendingIntent pendingIntent =
@@ -44,5 +50,13 @@ public class App extends Application {
     public PendingIntent openAppPendingIntent() {
         return PendingIntent.getActivity(this, 704554, new Intent(this, MyActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
     }
+
+    public void showCreateNotification() {
+        if (createNotification == null) {
+            createNotification = new CreateNotification();
+        }
+        createNotification.show();
+    }
+
 
 }

@@ -21,7 +21,25 @@ import snooze.ninja.R;
 public class Item {
 
     public String desc;
-    public long time;
+    private long timeNStatus;
+
+    private long getTime() {
+        return Math.abs(timeNStatus);
+    }
+
+    boolean wasNotified() {
+        return timeNStatus < 0;
+    }
+
+    void setNotified() {
+        timeNStatus = -getTime();
+        save();
+    }
+
+    public void setDismissed() {
+        timeNStatus = getTime();
+        save();
+    }
 
     static SharedPreferences prefs() {
         return App.getContext().getSharedPreferences(
@@ -31,24 +49,24 @@ public class Item {
 
     public Item(String desc, long time) {
         this.desc = desc;
-        this.time = time;
+        this.timeNStatus = time;
     }
 
     public Item(String desc) {
         this.desc = desc;
+        this.timeNStatus = Status.NEW;
     }
 
     public Item(CharSequence desc) {
-        this.desc = desc.toString();
+        this(desc.toString());
     }
 
     public Item(CharSequence desc, long time) {
-        this.desc = desc.toString();
-        this.time = time;
+        this(desc.toString(), time);
     }
 
     public Item save() {
-        prefs().edit().putLong(desc, time).commit();
+        prefs().edit().putLong(desc, timeNStatus).commit();
         return this;
     }
 
@@ -83,7 +101,7 @@ public class Item {
     }
 
     private boolean isOverDue() {
-        return time < System.currentTimeMillis();
+        return getTime() < System.currentTimeMillis();
     }
 
     public static void popAllOverDue() {
@@ -104,21 +122,21 @@ public class Item {
     public String timeForDisplay() {
 
         if (getDelta() < DateUtils.HOUR_IN_MILLIS * 2) {
-            return DateUtils.getRelativeDateTimeString(App.getContext(), time, DateUtils.MINUTE_IN_MILLIS,
+            return DateUtils.getRelativeDateTimeString(App.getContext(), getTime(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString();
         }
 
         if (getDelta() > DateUtils.DAY_IN_MILLIS * 2) {
-            return DateUtils.formatDateTime(App.getContext(), time,
+            return DateUtils.formatDateTime(App.getContext(), getTime(),
                     DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
         }
 
 //        if (isTaskForTomorrow()) {
         return
-                DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(),
+                DateUtils.getRelativeTimeSpanString(getTime(), System.currentTimeMillis(),
                         DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL).toString()
                         + ", " +
-                        DateUtils.formatDateTime(App.getContext(), time,
+                        DateUtils.formatDateTime(App.getContext(), getTime(),
                                 DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_CAP_AMPM);
 
 
@@ -127,7 +145,7 @@ public class Item {
 
     private boolean isTaskForTomorrow() {
         Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(time);
+        cal.setTimeInMillis(getTime());
         int taskDay = cal.get(Calendar.DAY_OF_YEAR);
 
         cal.setTimeInMillis(System.currentTimeMillis());
@@ -164,7 +182,7 @@ public class Item {
     }
 
     public boolean isNew() {
-        if (time == 0) {
+        if (getTime() == Status.NEW) {
             return true;
         }
         return false;
@@ -184,10 +202,16 @@ public class Item {
         return -1;
     }
 
+    public static void resetAllItemNotifications() {
+        for (Item item : getAll()) {
+            item.setDismissed();
+        }
+    }
+
     private static class ItemComparator implements java.util.Comparator<Item> {
         @Override
         public int compare(Item i, Item i2) {
-            int timeComparison = ((Long) i.time).compareTo(i2.time);
+            int timeComparison = ((Long) i.getTime()).compareTo(i2.getTime());
 
             if (timeComparison != 0) {
                 return timeComparison;
@@ -207,6 +231,29 @@ public class Item {
     }
 
     long getDelta() {
-        return time - System.currentTimeMillis();
+        return getTime() - System.currentTimeMillis();
     }
+
+    static class Status {
+        static int NEW = 1;
+    }
+
+
+    public static Item getByName(String notificationTitle) {
+
+        List<Item> items = Item.getAll();
+
+        for (Item item : items) {
+            if (!item.desc.equals(notificationTitle)) {
+                continue;
+            }
+
+            return item;
+
+        }
+
+        return null;
+    }
+
+
 }
