@@ -21,6 +21,5 @@ public class DismissSnoozeNotificationService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         String originalItemDesc = intent.getStringExtra(SnoozeNotification.ORIGINAL_ITEM_DESC);
         Log.d("testing-", "dismissed " + originalItemDesc);
-        App.instance.showingNotifications.remove(originalItemDesc);
     }
 }

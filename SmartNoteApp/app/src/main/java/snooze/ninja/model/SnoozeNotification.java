@@ -2,6 +2,7 @@ package snooze.ninja.model;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import java.util.List;
@@ -66,6 +67,8 @@ public class SnoozeNotification extends Dictification {
     protected NotificationCompat.Builder addStuffToNotification(NotificationCompat.Builder notificationBuilder) {
         notificationBuilder.addAction(R.drawable.delete_icon, "Remove", deletePendingIntent());
         notificationBuilder.setDeleteIntent(getDismissPendingIntent());
+        notificationBuilder.setSound(Uri.parse("android.resource://"
+                + App.instance.getPackageName() + "/" + R.raw.woman_clears_throat));
         return notificationBuilder;
     }
 

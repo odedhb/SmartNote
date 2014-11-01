@@ -88,16 +88,10 @@ public abstract class Dictification {
 
     public void show() {
 
-        Log.d("showingNotifications", App.instance.showingNotifications.toString());
-
-        if (App.instance.showingNotifications.contains(notificationTitle)) return;
-
-        Log.d("showingNotifications","does not contain");
-
         NotificationManager notificationManager =
                 (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(getId(), notification);
-        App.instance.showingNotifications.add(notificationTitle);
+
     }
 
     abstract String getContentText();

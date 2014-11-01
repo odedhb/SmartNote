@@ -23,6 +23,5 @@ public class AlarmIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         new CreateNotification().show();
         Item.popAllOverDue();
-        Log.d("Periodic", "" + System.currentTimeMillis() + " showing:"+ App.instance.showingNotifications.size());
     }
 }
