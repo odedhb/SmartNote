@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import snooze.ninja.App;
@@ -21,15 +22,60 @@ public class SnoozeNotification extends Dictification {
     public static final String ORIGINAL_ITEM_DESC = "ORIGINAL_ITEM_DESC";
 
     public SnoozeNotification(String notificationTitle) {
-        super(notificationTitle, "Snooze", new String[]{
-                "5 minutes",
-                "30 minutes",
-                "1 hour",
-                "noon time",
-                "tonight",
-                "tomorrow morning",
-                "tomorrow noon",
-                "tomorrow evening"});
+        super(notificationTitle, "Snooze", getHardCodedSnoozeStrings());
+    }
+
+
+    private static String[] getHardCodedSnoozeStrings() {
+
+        ArrayList<String> days = new ArrayList<String>();
+        days.add("this");
+        days.add("tomorrow");
+        days.add("sunday");
+        days.add("monday");
+        days.add("tuesday");
+        days.add("wednesday");
+        days.add("thursday");
+        days.add("friday");
+        days.add("saturday");
+
+        ArrayList<String> partsOfDay = new ArrayList<String>();
+        partsOfDay.add("morning");
+        partsOfDay.add("noon");
+        partsOfDay.add("evening");
+//        partsOfDay.add("night");
+
+
+        ArrayList<String> hardcodedList = new ArrayList<String>();
+//        hardcodedList.add("now");
+        hardcodedList.add("in 5 minutes");
+        hardcodedList.add("in 15 minutes");
+        hardcodedList.add("in 30 minutes");
+        hardcodedList.add("in 1 hour");
+        hardcodedList.add("in 2 hours");
+        hardcodedList.add("in 3 hours");
+        hardcodedList.add("in 4 hours");
+        hardcodedList.add("in 5 hours");
+        hardcodedList.add("in 6 hours");
+        hardcodedList.add("in 8 hours");
+        hardcodedList.add("in 10 hours");
+        hardcodedList.add("in 12 hours");
+        hardcodedList.add("tonight");
+        hardcodedList.add("in 18 hours");
+
+        //add all day of week alternatives
+        for (String dayName : days) {
+            for (String pod : partsOfDay) {
+                hardcodedList.add(dayName + " " + pod);
+            }
+        }
+
+        hardcodedList.add("in 2 days");
+        hardcodedList.add("in 3 days");
+        hardcodedList.add("weekend");
+        hardcodedList.add("in a week");
+
+        return hardcodedList.toArray(new String[hardcodedList.size()]);
     }
 
 
