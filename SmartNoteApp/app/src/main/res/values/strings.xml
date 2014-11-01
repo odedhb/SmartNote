@@ -15,7 +15,7 @@
     <string name="speak">Speak! What time?</string>
     <string name="confirm">Confirm</string>
     <string name="time">TIME</string>
-    <string name="snooze">Snooze!</string>
+    <string name="snooze">Snooze</string>
     <string name="new_item_notification_message">Time not set, tap to set due date.</string>
 
 </resources>
