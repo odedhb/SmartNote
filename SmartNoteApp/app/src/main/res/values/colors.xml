@@ -6,7 +6,7 @@
     <item name="header_text" type="color">#FFF</item>
     <item name="task_background" type="color">#f1f1f1</item>
     <item name="overdue_text" type="color">#E1394E</item>
-    <item name="due_today_text" type="color">#F5A623</item>
+    <item name="due_today_text" type="color">#BE7700</item>
     <item name="due_tomorrow_text" type="color">#666666</item>
     <item name="button_color" type="color">#D0D0CF</item>
 
