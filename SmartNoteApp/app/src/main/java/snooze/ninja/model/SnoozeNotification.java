@@ -4,12 +4,12 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.List;
+
 import snooze.ninja.App;
 import snooze.ninja.R;
 import snooze.ninja.runners.DeleteNotificationService;
 import snooze.ninja.runners.DismissSnoozeNotificationService;
-
-import java.util.List;
 
 /**
  * Created by oded on 9/19/14.
@@ -38,8 +38,15 @@ public class SnoozeNotification extends Dictification {
         List<Item> items = Item.getAll();
 
         for (Item item : items) {
-            if (item.desc.equals(notificationTitle))
+            if (!item.desc.equals(notificationTitle)) {
+                continue;
+            }
+
+            if (item.isNew()) {
+                return App.getContext().getResources().getString(R.string.new_item_notification_message);
+            } else {
                 return item.timeForDisplay();
+            }
         }
 
         return null;
