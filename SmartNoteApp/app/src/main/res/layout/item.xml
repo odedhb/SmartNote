@@ -35,6 +35,9 @@
             android:layout_weight="6.5">
 
             <TextView
+
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
                 android:id="@+id/item_description"
                 android:text="@string/buy_groceries"
                 android:layout_width="wrap_content"

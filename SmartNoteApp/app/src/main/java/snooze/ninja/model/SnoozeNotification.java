@@ -103,7 +103,7 @@ public class SnoozeNotification extends Dictification {
 
     @Override
     protected NotificationCompat.Builder addStuffToNotification(NotificationCompat.Builder notificationBuilder) {
-        notificationBuilder.addAction(R.drawable.delete_icon, "Remove", deletePendingIntent());
+        notificationBuilder.addAction(R.drawable.check_selected_icon, App.instance.getResources().getString(R.string.delete_task), deletePendingIntent());
         notificationBuilder.setDeleteIntent(getDismissPendingIntent());
         notificationBuilder.setSound(Uri.parse("android.resource://"
                 + App.instance.getPackageName() + "/" + R.raw.woman_clears_throat));
