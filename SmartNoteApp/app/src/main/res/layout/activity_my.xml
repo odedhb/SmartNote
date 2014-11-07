@@ -15,27 +15,52 @@
         android:orientation="vertical">
 
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_marginBottom="6dp"
-            android:hint="@string/create_new_item"
-            android:textColorHint="@color/transparent_header_text"
-            android:imeOptions="actionDone"
-            android:singleLine="true"
-            android:inputType="textCapSentences"
-            android:id="@+id/create_edit_text"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:background="@color/header"
-            android:textColor="@color/header_text"
-            android:padding="12dp"
-            android:textCursorDrawable="@null"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="0dp"
+                android:background="@android:color/transparent"
+                android:layout_weight="7.5"
+                android:hint="@string/create_new_item"
+                android:textColorHint="@color/transparent_header_text"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:inputType="textCapSentences"
+                android:id="@+id/create_edit_text"
+                android:layout_height="wrap_content"
+                android:textColor="@color/header_text"
+                android:padding="12dp"
+                android:textCursorDrawable="@null" />
+
+            <RelativeLayout
+                android:layout_weight="1.25"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/button1"
+                    android:background="@drawable/selector_create_button_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"></ImageButton>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/item_list"
             android:layout_height="match_parent"
             android:divider="@drawable/list_divider"
-            android:dividerHeight="4dp"/>
+            android:dividerHeight="4dp" />
 
 
     </LinearLayout>
