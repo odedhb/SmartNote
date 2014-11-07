@@ -52,10 +52,7 @@ public class App extends Application {
     }
 
     public void showCreateNotification() {
-        if (createNotification == null) {
-            createNotification = new CreateNotification();
-        }
-        createNotification.show();
+        new CreateNotification().show();
     }
 
 

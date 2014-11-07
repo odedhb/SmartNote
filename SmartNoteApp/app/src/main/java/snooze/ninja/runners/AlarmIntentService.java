@@ -19,7 +19,7 @@ public class AlarmIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        App.instance.showCreateNotification();
+//        App.instance.showCreateNotification();
 
         Item.popAllOverDue();
     }
