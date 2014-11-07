@@ -45,7 +45,7 @@ public abstract class Dictification {
 
         // Create the reply action and add the remote input
         NotificationCompat.Action action =
-                new NotificationCompat.Action.Builder(getIcon(),
+                new NotificationCompat.Action.Builder(getDictationIcon(),
                         dictationTitle, replyPendingIntent)
                         .addRemoteInput(remoteInput)
                         .build();
@@ -103,6 +103,8 @@ public abstract class Dictification {
     abstract String getContentText();
 
     abstract int getIcon();
+
+    abstract int getDictationIcon();
 
     int getId() {
         return new Random().nextInt();

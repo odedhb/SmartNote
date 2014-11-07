@@ -97,6 +97,11 @@ public class SnoozeNotification extends Dictification {
     }
 
     @Override
+    int getDictationIcon() {
+        return R.drawable.snooze_icon_wear;
+    }
+
+    @Override
     int getId() {
         return notificationTitle.hashCode();
     }
@@ -131,7 +136,7 @@ public class SnoozeNotification extends Dictification {
     protected NotificationCompat.WearableExtender addStuffToExtender(NotificationCompat.WearableExtender wearableExtender) {
 
         NotificationCompat.Action action =
-                new NotificationCompat.Action.Builder(R.drawable.delete_icon_hi_res, "Delete", deletePendingIntent()).build();
+                new NotificationCompat.Action.Builder(R.drawable.delete_icon_wear, "Delete", deletePendingIntent()).build();
         return wearableExtender.addAction(action);
     }
 

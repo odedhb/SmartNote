@@ -34,9 +34,13 @@ public class CreateNotification extends Dictification {
     @Override
     protected NotificationCompat.WearableExtender addStuffToExtender(NotificationCompat.WearableExtender wearableExtender) {
 
-        NotificationCompat.Action action =
-                new NotificationCompat.Action.Builder(R.drawable.show_all_icon, "Show all", showAllPendingIntent()).build();
-        return wearableExtender.addAction(action);
+        NotificationCompat.Action showAllAction =
+                new NotificationCompat.Action.Builder(
+                        R.drawable.show_all_icon_wear, App.getContext().getResources().getString(
+                        R.string.show_all), showAllPendingIntent()).build();
+        wearableExtender.addAction(showAllAction);
+
+        return wearableExtender;
 
     }
 
@@ -58,6 +62,11 @@ public class CreateNotification extends Dictification {
     @Override
     int getIcon() {
         return R.drawable.ic_logo_monochrome;
+    }
+
+    @Override
+    int getDictationIcon() {
+        return R.drawable.create_icon_wear;
     }
 
     @Override
