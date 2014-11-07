@@ -42,12 +42,13 @@
 
                 <ImageButton
                     android:id="@+id/button1"
-                    android:background="@drawable/selector_create_button_new"
+                    android:src="@drawable/selector_create_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#fff"
                     android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"></ImageButton>
+                    android:background="@android:color/transparent"
+                    android:layout_centerVertical="true">
+                    </ImageButton>
 
             </RelativeLayout>
 
