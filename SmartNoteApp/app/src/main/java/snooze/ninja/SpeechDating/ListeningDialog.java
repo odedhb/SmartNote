@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -40,6 +41,7 @@ public class ListeningDialog extends Dialog {
     private View progressBarView;
     private float progress = 0;
     public RelativeLayout speechAnimation;
+    private final int HEIGHT = 192;
 
     public ListeningDialog(Context context) {
         super(context);
@@ -77,32 +79,33 @@ public class ListeningDialog extends Dialog {
         boxView = new View(context);
         boxView.setBackground(boxBg());
         RelativeLayout.LayoutParams boxViewLayoutParams = new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, 128);
+                ViewGroup.LayoutParams.MATCH_PARENT, HEIGHT);
         speechAnimation.addView(boxView, boxViewLayoutParams);
 
 
         progressBarView = new View(context);
         progressBarView.setBackgroundColor(context.getResources().getColor(R.color.progress_color));
         RelativeLayout.LayoutParams progressBarLayoutParams = new RelativeLayout.LayoutParams(
-                16, 128);
+                16, HEIGHT);
         speechAnimation.addView(progressBarView, progressBarLayoutParams);
 
 
         soundBarView = new View(context);
         soundBarView.setBackgroundColor(context.getResources().getColor(R.color.speech_volume_color));
         RelativeLayout.LayoutParams soundBarLayoutParams = new RelativeLayout.LayoutParams(
-                16, 128);
+                16, HEIGHT);
         speechAnimation.addView(soundBarView, soundBarLayoutParams);
 
 
         speechTextView = new TextView(context);
         speechTextView.setText(R.string.speak);
-        speechTextView.setTextSize(24);
+        speechTextView.setTextSize(32);
+        speechTextView.setGravity(Gravity.CENTER);
         speechTextView.setTextColor(Color.parseColor("#ffffff"));
         RelativeLayout.LayoutParams speechTextViewParams = new RelativeLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        speechTextViewParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-        speechTextViewParams.setMargins(30, 20, 30, 0);
+                RelativeLayout.LayoutParams.MATCH_PARENT, HEIGHT);
+        speechTextViewParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+//        speechTextViewParams.setMargins(30, 20, 30, 0);
         speechAnimation.addView(speechTextView, speechTextViewParams);
         return speechAnimation;
     }
