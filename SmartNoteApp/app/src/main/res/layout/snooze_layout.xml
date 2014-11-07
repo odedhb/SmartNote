@@ -18,7 +18,7 @@
         android:visibility="invisible"
         android:id="@+id/confirmation_view"
         android:background="@color/task_background"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="4dp">
 
 
@@ -32,8 +32,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_centerInParent="true"
-                android:gravity="center"
-                >
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:text="00"
                     android:id="@+id/day_in_month"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
@@ -91,6 +90,37 @@
                 android:padding="2dp" />
 
         </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:visibility="gone"
+            android:id="@+id/button1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button2"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:background="#fff"
+            android:id="@+id/button3"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import snooze.ninja.App;
-import snooze.ninja.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+
+import snooze.ninja.App;
+import snooze.ninja.R;
 
 /**
  * Created by oded on 10/11/14.
@@ -35,6 +36,38 @@ public class DateTimeListeningDialog extends ListeningDialog {
         super.onCreate(savedInstanceState);
         setContentView(snoozeLayout);
         ((RelativeLayout) snoozeLayout.findViewById(R.id.animation_holder)).addView(speechAnimation);
+
+
+        int i = 0;
+        Integer[] snoozeHistoryButtons = new Integer[]{R.id.button1, R.id.button2, R.id.button3};
+        for (Integer buttonId : snoozeHistoryButtons) {
+
+            final String text = SnoozeHistory.getPastSnoozesText(i);
+            if (text == null) {
+                break;
+            }
+
+            Button b = ((Button) findViewById(buttonId));
+            b.setVisibility(View.VISIBLE);
+
+            b.setText(text);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SpeechDate speechDate = new SpeechDate(text);
+                    TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
+
+                    if (selectedHypotheses == null) return;
+
+                    setTitle(selectedHypotheses.getSpeech());
+                    final Long time = selectedHypotheses.getTimeInMillis();
+                    submitListener.onSubmit(time);
+                    dismiss();
+                }
+            });
+            i++;
+        }
+
     }
 
     @Override
@@ -47,7 +80,7 @@ public class DateTimeListeningDialog extends ListeningDialog {
     void parse(List<String> speechGuesses) {
 
         SpeechDate speechDate = new SpeechDate(speechGuesses);
-        TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
+        final TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
 
         if (selectedHypotheses == null) return;
 
@@ -74,6 +107,7 @@ public class DateTimeListeningDialog extends ListeningDialog {
             @Override
             public void onClick(View view) {
                 submitListener.onSubmit(time);
+                SnoozeHistory.add(selectedHypotheses.getSpeech());
                 dismiss();
             }
         });

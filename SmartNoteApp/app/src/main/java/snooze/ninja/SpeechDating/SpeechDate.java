@@ -59,7 +59,7 @@ public class SpeechDate {
 
                 timeHypothesis.add(timeHypotheses);
                 Log.d("time_debug : set: ", "voiceInput: " + voiceInput +
-                        " | when: " + when + " | time: " + Item.fullTimeForDisplay(date.getTime()));
+                        " | when: " + when + " | lastUsed: " + Item.fullTimeForDisplay(date.getTime()));
             }
         }
     }
