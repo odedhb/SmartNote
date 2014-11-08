@@ -42,10 +42,14 @@ public class DateTimeListeningDialog extends ListeningDialog {
         Integer[] snoozeHistoryButtons = new Integer[]{R.id.button1, R.id.button2, R.id.button3};
         for (Integer buttonId : snoozeHistoryButtons) {
 
+
             final String text = SnoozeHistory.getPastSnoozesText(i);
             if (text == null) {
                 break;
             }
+
+            findViewById(R.id.snooze_history_help_text).setVisibility(View.VISIBLE);
+
 
             Button b = ((Button) findViewById(buttonId));
             b.setVisibility(View.VISIBLE);
