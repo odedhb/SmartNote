@@ -80,6 +80,7 @@ public class SpeechDate {
                 .replace("today's", "2 days")
                 .replace("elephant", "11")
                 .replace("the clock", "10 o'clock")
+                .replace("the cock", "4 o'clock")
                 ;
     }
 

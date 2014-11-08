@@ -17,6 +17,7 @@
 
         <LinearLayout
             android:background="@color/header"
+            android:layout_marginBottom="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
