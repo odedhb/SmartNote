@@ -15,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:id="@+id/confirmation_view"
         android:background="@color/task_background"
         android:layout_height="wrap_content"
