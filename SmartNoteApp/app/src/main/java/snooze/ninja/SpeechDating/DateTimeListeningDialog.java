@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import snooze.ninja.App;
+import snooze.ninja.ContextualSpeech;
 import snooze.ninja.R;
 
 /**
@@ -58,7 +59,7 @@ public class DateTimeListeningDialog extends ListeningDialog {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SpeechDate speechDate = new SpeechDate(text);
+                    SpeechDate speechDate = new SpeechDate(text, ContextualSpeech.ContextType.TASK);
                     TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
 
                     if (selectedHypotheses == null) return;
@@ -83,7 +84,7 @@ public class DateTimeListeningDialog extends ListeningDialog {
 
     void parse(List<String> speechGuesses) {
 
-        SpeechDate speechDate = new SpeechDate(speechGuesses);
+        SpeechDate speechDate = new SpeechDate(speechGuesses, ContextualSpeech.ContextType.TIME);
         final TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
 
         if (selectedHypotheses == null) return;

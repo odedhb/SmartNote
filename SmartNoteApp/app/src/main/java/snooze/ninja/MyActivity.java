@@ -73,7 +73,7 @@ public class MyActivity extends ActionBarActivity {
             return;
         }
 
-        SpeechDate speechDate = new SpeechDate(text);
+        SpeechDate speechDate = new SpeechDate(text, ContextualSpeech.ContextType.TASK);
         TimeHypotheses selectedHypotheses = speechDate.getSelectedHypotheses();
         Long time;
         Item item;

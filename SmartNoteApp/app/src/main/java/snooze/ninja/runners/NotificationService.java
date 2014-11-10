@@ -9,6 +9,7 @@ import android.support.v4.app.RemoteInput;
 import android.util.Log;
 
 import snooze.ninja.App;
+import snooze.ninja.ContextualSpeech;
 import snooze.ninja.SpeechDating.SpeechDate;
 import snooze.ninja.SpeechDating.TimeHypotheses;
 import snooze.ninja.model.CreateNotification;
@@ -66,7 +67,7 @@ public class NotificationService extends IntentService {
 
         Log.d("testing-" + this, "create function called");
 
-        TimeHypotheses timeHypotheses = new SpeechDate(speech).getSelectedHypotheses();
+        TimeHypotheses timeHypotheses = new SpeechDate(speech, ContextualSpeech.ContextType.TASK).getSelectedHypotheses();
 
         if (timeHypotheses == null) {
             Log.d("testing-" + this, "time is null");
@@ -89,7 +90,7 @@ public class NotificationService extends IntentService {
     }
 
     void snooze(CharSequence speech, String originalItemDesc) {
-        Long time = new SpeechDate(speech).getSelectedHypotheses().getTimeInMillis();
+        Long time = new SpeechDate(speech, ContextualSpeech.ContextType.TIME).getSelectedHypotheses().getTimeInMillis();
         if (time == null) return;
         if (time == 0l) return;
         new Item(originalItemDesc, time).save();

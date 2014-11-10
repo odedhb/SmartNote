@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import snooze.ninja.ContextualSpeech;
 import snooze.ninja.model.Item;
+
 
 /**
  * Created by oded on 10/2/14.
@@ -17,32 +19,52 @@ import snooze.ninja.model.Item;
 public class SpeechDate {
 
     private List<TimeHypotheses> timeHypothesis;
+    private ContextualSpeech.SpeechRecognition speechRecognition;
+    private ContextualSpeech contextualSpeech;
 
-    public SpeechDate(CharSequence hypothesis) {
-        List<String> hypotheses = new ArrayList<String>();
-        hypotheses.add(hypothesis.toString());
-        setText(hypotheses);
+    void initialize(List<String> hypothesis, String contextType) {
+        contextualSpeech = new ContextualSpeech();
+        setText(hypothesis, contextType);
     }
 
-    public SpeechDate(List<String> hypothesis) {
-        setText(hypothesis);
+    public SpeechDate(CharSequence hypotheses, String contextType) {
+        List<String> hypothesis = new ArrayList<String>();
+        hypothesis.add(hypotheses.toString());
+        initialize(hypothesis, contextType);
     }
 
-    private void setText(List<String> hypothesis) {
+    public SpeechDate(List<String> hypothesis, String contextType) {
+        initialize(hypothesis, contextType);
+    }
+
+    private void setText(List<String> hypothesis, String contextType) {
         timeHypothesis = new ArrayList<TimeHypotheses>();
 
         Log.d("time_debug : hypothesis", hypothesis.toString());
 
-        for (String hypo : hypothesis) {
-            parseTimeFromText(hypo);
+        speechRecognition = contextualSpeech.new SpeechRecognition();
+
+        for (String hypoString : hypothesis) {
+
+            Boolean isTime = parseTimeFromText(hypoString);
+
+            ContextualSpeech.SpeechHypo hypo = contextualSpeech.new SpeechHypo();
+
+            hypo.context_type = contextType;
+            hypo.matches_context = isTime.toString();
+            hypo.speech_hypotheses = hypoString;
+            hypo.speech_recognition_id = hypothesis.get(0).hashCode() + "_" + hypothesis.get(0);
+
+            speechRecognition.add(hypo);
         }
     }
 
 
-    public void parseTimeFromText(String voiceInput) {
+    public Boolean parseTimeFromText(String voiceInput) {
 
-        String when = normalize(voiceInput);
+        String when = voiceInput;
 
+        List<TimeHypotheses> tempTimeHypothesis = new ArrayList<TimeHypotheses>();
 
         Parser parser = new Parser();
         List<DateGroup> groups = parser.parse(when);
@@ -57,11 +79,15 @@ public class SpeechDate {
                 if (date.getTime() == 0) continue;
                 TimeHypotheses timeHypotheses = new TimeHypotheses().setSpeech(when).setTimeInMillis(date.getTime());
 
-                timeHypothesis.add(timeHypotheses);
+                tempTimeHypothesis.add(timeHypotheses);
                 Log.d("time_debug : set: ", "voiceInput: " + voiceInput +
                         " | when: " + when + " | lastUsed: " + Item.fullTimeForDisplay(date.getTime()));
             }
         }
+
+        timeHypothesis.addAll(tempTimeHypothesis);
+
+        return tempTimeHypothesis.size() > 0;
     }
 
 
@@ -85,7 +111,9 @@ public class SpeechDate {
     }
 
     public TimeHypotheses getSelectedHypotheses() {
-        Log.d("timeHypo", " count:"+timeHypothesis.size());
+        Log.d("timeHypo", " count:" + timeHypothesis.size());
+
+        contextualSpeech.run(speechRecognition);
 
         if (timeHypothesis.size() < 1) {
             return null;
@@ -97,4 +125,6 @@ public class SpeechDate {
 
         return timeHypothesis.get(0);
     }
+
+
 }
