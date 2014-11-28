@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.text.format.DateUtils;
 
 import snooze.ninja.model.CreateNotification;
@@ -52,6 +53,16 @@ public class App extends Application {
     }
 
     public void showCreateNotification() {
+
+        try {
+            getPackageManager().getPackageInfo("com.google.android.wearable.app", PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            //android wear app is not installed
+            return;
+        }
+        //android wear app installed
+
+
         new CreateNotification().show();
     }
 
