@@ -29,6 +29,6 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.+'
     compile "com.android.support:appcompat-v7:21.0.+"
     compile "com.android.support:recyclerview-v7:+"
-    compile 'com.joestelmach:natty:0.8'
+    compile 'com.joestelmach:natty:0.9'
 
 }

@@ -64,6 +64,8 @@ public class SpeechDate {
 
         String when = voiceInput;
 
+        when = normalize(when);
+
         List<TimeHypotheses> tempTimeHypothesis = new ArrayList<TimeHypotheses>();
 
         Parser parser = new Parser();
@@ -92,6 +94,12 @@ public class SpeechDate {
 
 
     private static String normalize(String voiceInput) {
+        return voiceInput
+                .replace("half an hour", "30 minutes")
+                ;
+    }
+
+    private static String normalizeOld(String voiceInput) {
         return voiceInput
                 .replace("doors", "2 hours")
                 .replace("a_m", "a.m.")
