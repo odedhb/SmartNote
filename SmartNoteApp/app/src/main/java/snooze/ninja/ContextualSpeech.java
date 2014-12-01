@@ -41,8 +41,9 @@ public class ContextualSpeech {
 
         new PostJSON("http://contextualspeech.appspot.com/api", jsonObject) {
             @Override
-            public void onResponse(HttpResponse httpResponse) {
-                Log.d("response", httpResponse.getStatusLine().getReasonPhrase());
+            public void onResponse(HttpResponse httpResponse, JSONObject jsonResponse) {
+                Log.d("post response", httpResponse.getStatusLine().getReasonPhrase());
+                Log.d("post json object response", jsonResponse.toString());
             }
         };
 

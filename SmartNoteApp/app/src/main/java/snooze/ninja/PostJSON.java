@@ -8,9 +8,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -39,12 +43,13 @@ abstract public class PostJSON {
         new HttpAsyncTask(httpPost).execute();
     }
 
-    abstract public void onResponse(HttpResponse httpResponse);
+    abstract public void onResponse(HttpResponse httpResponse, JSONObject jsonResponse);
 
 
     private class HttpAsyncTask extends android.os.AsyncTask {
         private HttpPost httpPost;
         private HttpResponse response;
+        private JSONObject jsonResponse;
 
         private HttpAsyncTask(HttpPost httpPost) {
             this.httpPost = httpPost;
@@ -54,17 +59,30 @@ abstract public class PostJSON {
         protected Object doInBackground(Object[] objects) {
             try {
                 response = new DefaultHttpClient().execute(httpPost);
+
+                Log.d("Post JSON response", response.getStatusLine().getReasonPhrase());
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+                StringBuilder builder = new StringBuilder();
+                for (String line = null; (line = reader.readLine()) != null; ) {
+                    builder.append(line).append("\n");
+                }
+                JSONTokener tokener = new JSONTokener(builder.toString());
+                jsonResponse = new JSONObject(tokener);
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
-            Log.d("Post JSON response", response.getStatusLine().getReasonPhrase());
+
             return null;
         }
 
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            onResponse(response);
+            onResponse(response, jsonResponse);
         }
     }
 
